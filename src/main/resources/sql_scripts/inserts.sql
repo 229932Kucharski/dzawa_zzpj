@@ -33,6 +33,6 @@ INSERT INTO Connection VALUES (1, 1, 1, 3, 'waiting');
 INSERT INTO Connection VALUES (2, 2, 1, 3, 'accepted');
 INSERT INTO Connection VALUES (3, 3, 2, 4, 'canceled');
 
-INSERT INTO Chat VALUES (2, 1, "Czy ten pies gryzie?");
-INSERT INTO Chat VALUES (2, 3, "Tak, gryzie");
-INSERT INTO Chat VALUES (2, 1, "A to nie chce go.");
+INSERT INTO Chat VALUES (1, 2, 1, "Czy ten pies gryzie?");
+INSERT INTO Chat VALUES (2, 2, 3, "Tak, gryzie");
+INSERT INTO Chat VALUES (3, 2, 1, "A to nie chce go.");

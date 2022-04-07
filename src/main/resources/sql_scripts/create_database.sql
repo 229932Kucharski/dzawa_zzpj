@@ -45,20 +45,22 @@ CREATE TABLE psinder.PetAvailability (
 CREATE TABLE psinder.Connection (
 	id INT NOT NULL AUTO_INCREMENT,
     pet_id INT NOT NULL,
-    onwer_id INT NOT NULL,
+    owner_id INT NOT NULL,
     walker_id INT NOT NULL,
     status ENUM('waiting', 'accepted', 'canceled'),
     PRIMARY KEY(id),
     FOREIGN KEY (pet_id) REFERENCES psinder.Pet(id),
-    FOREIGN KEY (onwer_id) REFERENCES psinder.User(id),
+    FOREIGN KEY (owner_id) REFERENCES psinder.User(id),
     FOREIGN KEY (walker_id) REFERENCES psinder.User(id)
     );
     
 CREATE TABLE psinder.Chat (
-	match_id INT NOT NULL,
+    id INT NOT NULL AUTO_INCREMENT,
+	connection_id INT NOT NULL,
     user_id INT NOT NULL,
     text VARCHAR(255),
-    FOREIGN KEY (match_id) REFERENCES psinder.Connection(id),
+    PRIMARY KEY (id),
+    FOREIGN KEY (connection_id) REFERENCES psinder.Connection(id),
 	FOREIGN KEY (user_id) REFERENCES psinder.User(id)
     );
 
