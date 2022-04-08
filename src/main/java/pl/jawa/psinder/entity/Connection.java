@@ -1,6 +1,8 @@
 package pl.jawa.psinder.entity;
 
 import lombok.Data;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import pl.jawa.psinder.enums.Status;
 
 import javax.persistence.*;
@@ -17,14 +19,17 @@ public class Connection {
     private long id;
 
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "pet_id")
     private Pet pet;
 
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "owner_id")
     private User owner;
 
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "walker_id")
     private User walker;
 

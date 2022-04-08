@@ -1,7 +1,8 @@
 package pl.jawa.psinder.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 
@@ -22,6 +23,7 @@ public class Rating {
     private String comment;
 
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "from_user_id")
     private User fromUser;
 

@@ -2,6 +2,8 @@ package pl.jawa.psinder.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.util.List;
@@ -18,6 +20,7 @@ public class Pet {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private User user;
 
@@ -39,7 +42,4 @@ public class Pet {
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "pet")
     private PetAddress address;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "pet")
-    @JsonIgnore
-    private List<Connection> connections;
 }
