@@ -1,0 +1,8 @@
+<div class="content" [hidden]="!authenticated()">
+  <div *ngFor="let pet of pets" class="col-md-3">
+    <h1>{{ pet.name }}</h1>
+  </div>
+</div>
+<div class="content" [hidden]="authenticated()">
+  <div class="alert alert-danger">Please login to see pets.</div>
+</div>
