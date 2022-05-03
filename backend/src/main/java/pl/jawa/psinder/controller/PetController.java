@@ -1,12 +1,11 @@
 package pl.jawa.psinder.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pl.jawa.psinder.entity.Pet;
+import pl.jawa.psinder.entity.User;
 import pl.jawa.psinder.repository.PetRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,13 +26,24 @@ public class PetController {
     }
 
     //get all pets from user given by id
-    @GetMapping("?userid={id}")
-    public List<Pet> getPetsByUserId(@PathVariable long id) {
+    @GetMapping("/user")
+    public List<Pet> getPetsByUserId(@RequestParam("id") long id) {
         return petRepository.findByUserId(id);
     }
 
-    @GetMapping("?id={id}")
+    //get pet by given id
+    @GetMapping("/{id}")
     public Optional<Pet> getPetById(@PathVariable long id) {
         return petRepository.findById(id);
+    }
+
+    //get user info from pet id
+    @GetMapping("/users")
+    public List<String> getPetParentById(@RequestParam("pet_id") long id) {
+        List<String> result = new ArrayList<>();
+        User temp = petRepository.getById(id).getUser();
+        result.add(temp.getUsername());
+        result.add(String.valueOf(temp.getId()));
+        return result;
     }
 }
