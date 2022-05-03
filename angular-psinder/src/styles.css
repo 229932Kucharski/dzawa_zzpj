@@ -98,6 +98,10 @@ a.logo:hover {
   font-size: 20px;
 }
 
+.toolbar button {
+  margin: 5px;
+}
+
 /* ========================= */
 /*          XXXXXXX          */
 /* ========================= */
