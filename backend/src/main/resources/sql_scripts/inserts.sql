@@ -1,9 +1,9 @@
 USE psinder;
 
-INSERT INTO User VALUES (1, 'Karol', 'Wojtyła', 'Jp2', '{bcrypt}$2a$12$BFzZHObEf8ujWEBRQbq/SuzA1gjZeNyy4Qb5.tC6saMFMh.t7/x3C', 'papiezpolak@o2.pl');
-INSERT INTO User VALUES (2, 'Kojciech', 'Wowner', 'Nafai', '{bcrypt}$2a$12$BFzZHObEf8ujWEBRQbq/SuzA1gjZeNyy4Qb5.tC6saMFMh.t7/x3C', 'wojciech.kowner@gmail.pl');
-INSERT INTO User VALUES (3, 'Krzegorz', 'Gucharski', 'Gelo', '{bcrypt}$2a$12$BFzZHObEf8ujWEBRQbq/SuzA1gjZeNyy4Qb5.tC6saMFMh.t7/x3C', 'grzegorz.kucharski@gmail.pl');
-INSERT INTO User VALUES (4, 'Partek', 'Bietrzyba', 'Bartek', '{bcrypt}$2a$12$BFzZHObEf8ujWEBRQbq/SuzA1gjZeNyy4Qb5.tC6saMFMh.t7/x3C', 'bartek.pietrzyba@gmail.pl');
+INSERT INTO User VALUES (1, 'Karol', 'Wojtyła', 'Jp2', '$2a$10$Fn5ReBxSA7m5lsZEIQ/JyOmIKQYIm5iVUx3ZMYIspzOWSI88h7Noy', 'papiezpolak@o2.pl');
+INSERT INTO User VALUES (2, 'Kojciech', 'Wowner', 'Nafai', '$2a$10$Fn5ReBxSA7m5lsZEIQ/JyOmIKQYIm5iVUx3ZMYIspzOWSI88h7Noy', 'wojciech.kowner@gmail.pl');
+INSERT INTO User VALUES (3, 'Krzegorz', 'Gucharski', 'Gelo', '$2a$10$Fn5ReBxSA7m5lsZEIQ/JyOmIKQYIm5iVUx3ZMYIspzOWSI88h7Noy', 'grzegorz.kucharski@gmail.pl');
+INSERT INTO User VALUES (4, 'Partek', 'Bietrzyba', 'Bartek', '$2a$10$Fn5ReBxSA7m5lsZEIQ/JyOmIKQYIm5iVUx3ZMYIspzOWSI88h7Noy', 'bartek.pietrzyba@gmail.pl');
 
 INSERT INTO Pet VALUES (1, 1, 'Pimpek', 'Owczarek niemiecki', 'big', 'Fajny pies, bardzo fajny, miły, dzień dobry na klatce mówi');
 INSERT INTO Pet VALUES (2, 1, 'Ciapek', 'Mieszaniec', 'medium', 'Państwo Izrael bezprawnie okupuje tereny należące do Palestyny ale opinia publiczna ma to w dupie i przyzwala na czystki etniczne');
