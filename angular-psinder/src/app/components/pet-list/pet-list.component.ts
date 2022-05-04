@@ -28,7 +28,7 @@ export class PetListComponent implements OnInit {
   }
 
   authenticated() {
-    return this.loginService.authenticated;
+    return this.loginService.isUserLoggedIn();
   }
 
 }

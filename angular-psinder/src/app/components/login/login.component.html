@@ -2,7 +2,7 @@
   <div class="alert alert-danger" [hidden]="!error">
     There was a problem logging in. Please try again.
   </div>
-  <form role="form" (submit)="login()">
+  <form role="form" (submit)="checkLogin()">
     <div class="form-group">
       <label for="username">Username:</label>
       <input
@@ -10,7 +10,7 @@
         class="form-control"
         id="username"
         name="username"
-        [(ngModel)]="credentials.username"
+        [(ngModel)]="username"
       />
     </div>
     <div class="form-group">
@@ -20,9 +20,12 @@
         class="form-control"
         id="password"
         name="password"
-        [(ngModel)]="credentials.password"
+        [(ngModel)]="password"
       />
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
   </form>
+  <p *ngIf="error" class="error">
+    {{ error }}
+  </p>
 </div>

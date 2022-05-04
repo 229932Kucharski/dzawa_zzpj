@@ -8,8 +8,14 @@
   <div class="spacer-left"></div>
   <button class="btn btn-light" routerLink="/pets">Psy</button>
   <div class="spacer-right"></div>
-  <button class="btn btn-light" routerLink="/login">Zaloguj</button>
-  <button class="btn btn-light" routerLink="/pets" (click)="logout()">
+  <button class="btn btn-light" routerLink="/login" [hidden]="authenticated()">
+    Zaloguj
+  </button>
+  <button
+    class="btn btn-light"
+    routerLink="/logout"
+    [hidden]="!authenticated()"
+  >
     Wyloguj
   </button>
   <div class="spacer-right"></div>
