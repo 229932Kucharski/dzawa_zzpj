@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { map } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -8,21 +9,29 @@ import { environment } from 'src/environments/environment';
 export class LoginService {
 
   authenticated = false;
-  private userUrl = environment.baseUrl + '/user';
+  private authenticateUrl = environment.baseUrl + '/authenticate';
 
   constructor(private httpClient: HttpClient) { }
 
-  authenticate(credentials: any, callback: any) {
-    const headers = new HttpHeaders(credentials ? {
-      authorization : 'Basic ' + btoa(credentials.username + ':' + credentials.password)
-    } : {});
-    this.httpClient.get(this.userUrl, {headers: headers}).subscribe(response => {
-      if (response.hasOwnProperty('name')) {
-        this.authenticated = true;
-      } else {
-        this.authenticated = false;
-      }
-      return callback && callback();
-    })
+  authenticate(username: string, password: string) {
+    return this.httpClient.post<any>(this.authenticateUrl, { username, password })
+    .pipe(
+      map(userData => {
+        sessionStorage.setItem("username", username);
+        let tokenStr = "Bearer " + userData.token;
+        sessionStorage.setItem("token", tokenStr);
+        return userData;
+      })
+    );
   }
+
+  isUserLoggedIn() {
+    let user = sessionStorage.getItem("username");
+    return !(user === null);
+  }
+
+  logOut() {
+    sessionStorage.removeItem("username");
+  }
+
 }
