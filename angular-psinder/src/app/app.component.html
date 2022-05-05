@@ -8,16 +8,9 @@
   <div class="spacer-left"></div>
   <button class="btn btn-light" routerLink="/pets">Psy</button>
   <div class="spacer-right"></div>
-  <button class="btn btn-light" routerLink="/login" [hidden]="authenticated()">
-    Zaloguj
-  </button>
-  <button
-    class="btn btn-light"
-    routerLink="/logout"
-    [hidden]="!authenticated()"
-  >
-    Wyloguj
-  </button>
+
+  <app-login-status></app-login-status>
+
   <div class="spacer-right"></div>
 </div>
 
