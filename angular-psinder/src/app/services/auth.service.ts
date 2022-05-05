@@ -6,9 +6,8 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class LoginService {
+export class AuthService {
 
-  authenticated = false;
   private authenticateUrl = environment.baseUrl + '/authenticate';
 
   constructor(private httpClient: HttpClient) { }

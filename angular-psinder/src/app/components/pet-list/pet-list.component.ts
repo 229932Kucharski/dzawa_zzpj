@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Pet } from 'src/app/common/pet';
-import { LoginService } from 'src/app/services/login.service';
+import { AuthService } from 'src/app/services/auth.service';
 import { PetService } from 'src/app/services/pet.service';
 
 @Component({
@@ -15,7 +15,7 @@ export class PetListComponent implements OnInit {
 
   constructor(private petService: PetService, 
     private route: ActivatedRoute,
-    private loginService: LoginService) { }
+    private loginService: AuthService) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(() => {

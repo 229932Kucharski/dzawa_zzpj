@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { LoginService } from 'src/app/services/login.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -14,9 +14,9 @@ export class LoginComponent implements OnInit {
   password = ''
   invalidLogin = false
   
-  @Input() error: string | undefined;
+  error: string | undefined;
 
-  constructor(private loginService: LoginService, 
+  constructor(private loginService: AuthService, 
     private router: Router) { }
 
   ngOnInit(): void {
@@ -34,7 +34,10 @@ export class LoginComponent implements OnInit {
       }
     )
     );
+  }
 
+  clearError() {
+    this.error = undefined;
   }
 
 }

@@ -2,7 +2,7 @@ import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/c
 import { Injectable } from '@angular/core';
 import { first, from, lastValueFrom, mergeMap, Observable, switchMap } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { LoginService } from './login.service';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'

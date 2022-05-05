@@ -12,8 +12,12 @@ import { FormsModule } from '@angular/forms';
 import { TokenInterceptorService } from './services/token-interceptor.service';
 import { LogoutComponent } from './components/logout/logout.component';
 import { AuthGuardService } from './services/auth-guard.service';
+import { SignupComponent } from './components/signup/signup.component';
+import { ReactiveFormsModule, Validators } from '@angular/forms';
+import { LoginStatusComponent } from './components/login-status/login-status.component';
 
 const routes: Routes = [
+  {path: 'signup', component: SignupComponent},
   {path: 'login', component: LoginComponent},
   {path: 'logout', component: LogoutComponent, canActivate:[AuthGuardService]},
   {path: 'pets', component: PetListComponent, canActivate:[AuthGuardService]},
@@ -26,13 +30,16 @@ const routes: Routes = [
     AppComponent,
     PetListComponent,
     LoginComponent,
-    LogoutComponent
+    LogoutComponent,
+    SignupComponent,
+    LoginStatusComponent
   ],
   imports: [
     RouterModule.forRoot(routes),
     BrowserModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [PetService, {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi: true}],
   bootstrap: [AppComponent]
