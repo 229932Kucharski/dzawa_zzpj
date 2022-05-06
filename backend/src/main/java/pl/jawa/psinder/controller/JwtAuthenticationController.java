@@ -8,6 +8,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import pl.jawa.psinder.dto.UserDto;
+import pl.jawa.psinder.entity.User;
 import pl.jawa.psinder.model.JwtRequest;
 import pl.jawa.psinder.model.JwtResponse;
 import pl.jawa.psinder.security.JwtTokenUtil;
@@ -36,18 +37,21 @@ public class JwtAuthenticationController {
             throws Exception {
 
         authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
-
         final UserDetails userDetails = userDetailsService
                 .loadUserByUsername(authenticationRequest.getUsername());
-
         final String token = jwtTokenUtil.generateToken(userDetails);
-
         return ResponseEntity.ok(new JwtResponse(token));
     }
 
     @PostMapping("/register")
     public ResponseEntity<?> saveUser(@RequestBody UserDto user) throws Exception {
-        return ResponseEntity.ok(userDetailsService.save(user));
+        User createdUser = null;
+        try {
+            createdUser = userDetailsService.save(user);
+        } catch(IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+        return ResponseEntity.ok(createdUser);
     }
 
     private void authenticate(String username, String password) throws Exception {
