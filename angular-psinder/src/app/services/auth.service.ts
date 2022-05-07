@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, map, Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { User } from '../common/user';
+import { UserData } from '../common/userData';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,7 @@ export class AuthService {
 
   private authenticateUrl = environment.baseUrl + '/authenticate';
   private registerUrl = environment.baseUrl + '/register';
+  private userUrl = environment.baseUrl + '/users';
 
   username: Subject<string> = new BehaviorSubject<string>("");
 
@@ -31,6 +33,10 @@ export class AuthService {
     );
   }
 
+  getUser(username: string) {
+    return this.httpClient.get<UserData>(`${this.userUrl}?username=${username}`);
+  }
+
   register(user: User) {
     return this.httpClient.post<User>(this.registerUrl, user)
   }
@@ -42,7 +48,7 @@ export class AuthService {
 
   logOut() {
     sessionStorage.removeItem("username");
-    // this.username.next("");
+    this.username.next("");
   }
 
 }

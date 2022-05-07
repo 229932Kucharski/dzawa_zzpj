@@ -14,8 +14,10 @@ import { LogoutComponent } from './components/logout/logout.component';
 import { AuthGuardService } from './services/auth-guard.service';
 import { SignupComponent } from './components/signup/signup.component';
 import { ReactiveFormsModule, Validators } from '@angular/forms';
+import { UserPageComponent } from './components/user-page/user-page.component';
 
 const routes: Routes = [
+  {path: 'profile', component: UserPageComponent, canActivate:[AuthGuardService]},
   {path: 'signup', component: SignupComponent},
   {path: 'login', component: LoginComponent},
   {path: 'logout', component: LogoutComponent, canActivate:[AuthGuardService]},
@@ -31,6 +33,7 @@ const routes: Routes = [
     LoginComponent,
     LogoutComponent,
     SignupComponent,
+    UserPageComponent,
   ],
   imports: [
     RouterModule.forRoot(routes),
