@@ -15,8 +15,10 @@ import { AuthGuardService } from './services/auth-guard.service';
 import { SignupComponent } from './components/signup/signup.component';
 import { ReactiveFormsModule, Validators } from '@angular/forms';
 import { UserPageComponent } from './components/user-page/user-page.component';
+import { ConnectionChooseComponent } from './components/connection-choose/connection-choose.component';
 
 const routes: Routes = [
+  {path: 'choose-connection', component: ConnectionChooseComponent, canActivate:[AuthGuardService]},
   {path: 'profile', component: UserPageComponent, canActivate:[AuthGuardService]},
   {path: 'signup', component: SignupComponent},
   {path: 'login', component: LoginComponent},
@@ -34,6 +36,7 @@ const routes: Routes = [
     LogoutComponent,
     SignupComponent,
     UserPageComponent,
+    ConnectionChooseComponent,
   ],
   imports: [
     RouterModule.forRoot(routes),

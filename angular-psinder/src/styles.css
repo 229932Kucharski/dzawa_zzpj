@@ -106,5 +106,31 @@ a.logo:hover {
   text-decoration: none;
 }
 
+/* ========================= */
+/*     CONNECTION CHOOSE     */
+/* ========================= */
+
+.connection-img{
+  opacity: 0.8;
+}
+
+.my-card {
+  padding: 30px;
+}
+
+.my-card-link {
+  color: black;
+  text-decoration: none;
+}
+
+.my-card-link:hover .card {
+  color: black;
+  text-decoration: none;
+  border: 1px solid #ff9100;
+}
 
 
+.my-card-link:hover img {
+  opacity: 1;
+  transition: 0.3s;
+}
