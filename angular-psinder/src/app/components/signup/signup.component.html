@@ -143,5 +143,20 @@
         (click)="clearError()"
       ></button>
     </div>
+    <div
+      class="alert alert-danger alert-dismissible"
+      data-auto-dismiss
+      role="alert"
+      *ngIf="authError"
+    >
+      {{ authError }}
+      <button
+        type="button"
+        class="btn-close"
+        data-dismiss="alert"
+        aria-label="Close"
+        (click)="clearError()"
+      ></button>
+    </div>
   </section>
 </div>

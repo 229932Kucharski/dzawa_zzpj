@@ -52,7 +52,7 @@ a:hover {
 /*          TOOLBAR          */
 /* ========================= */
 .spacer-left {
-  flex: 10;
+  flex: 8;
 }
 
 .spacer-right {
@@ -60,13 +60,6 @@ a:hover {
 }
 
 .toolbar {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 60px;
-  display: flex;
-  align-items: center;
   background-color: #1976d2;
   color: white;
   font-weight: 600;
@@ -94,11 +87,15 @@ a.logo:hover {
 
 .toolbar .logo span {
   margin-left: 10px;
-  font-size: 20px;
+  font-size: 25px;
 }
 
 .toolbar button {
   margin: 5px;
+}
+
+.nav-link.btn {
+  width: 150px;
 }
 
 /* ========================= */

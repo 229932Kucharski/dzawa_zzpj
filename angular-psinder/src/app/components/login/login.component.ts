@@ -15,9 +15,16 @@ export class LoginComponent implements OnInit {
   invalidLogin = false
   
   error: string | undefined;
+  message: string | undefined;
 
   constructor(private loginService: AuthService, 
-    private router: Router) { }
+    private router: Router) {
+      const navigation = this.router.getCurrentNavigation();
+      const state = navigation?.extras.state as {data: string};
+      if (state !== undefined) {
+        this.message = state.data;
+      }
+    }
 
   ngOnInit(): void {
   }

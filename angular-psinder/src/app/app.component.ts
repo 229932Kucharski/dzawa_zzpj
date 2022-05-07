@@ -7,9 +7,23 @@ import { AuthService } from './services/auth.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'angular-psinder';
 
-  constructor() {
+  username: string = "";
+
+  constructor(private loginService: AuthService) { }
+
+  ngOnInit(): void {
+    this.getUsername();
+  }
+
+  getUsername() {
+    this.loginService.username.subscribe(
+      data => this.username = data
+    )
+  }
+
+  isAuthenticated() {
+    return this.loginService.isUserLoggedIn();
   }
 
 }
