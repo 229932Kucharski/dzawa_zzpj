@@ -49,6 +49,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .authorizeRequests()
                     .antMatchers("/authenticate", "/register", "/").permitAll()
                     .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+//                Comment below line to open endpoints
 //                    .anyRequest().authenticated()
                 .and()
                     .exceptionHandling()
