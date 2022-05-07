@@ -33,19 +33,14 @@ public class JwtUserDetailsService implements UserDetailsService {
                 new ArrayList<>());
     }
 
-    public User save(UserDto user) {
+    public User save(User user) {
         if (userRepository.existsByUsername(user.getUsername())) {
             throw new IllegalArgumentException("Username is already taken!");
         } else if (userRepository.existsByEmail(user.getEmail())) {
             throw new IllegalArgumentException("Email is already in use!");
         }
-        User newUser = new User();
-        newUser.setUsername(user.getUsername());
-        newUser.setFirstName(user.getFirstName());
-        newUser.setLastName(user.getLastName());
-        newUser.setEmail(user.getEmail());
-        newUser.setPassword(bcryptEncoder.encode(user.getPassword()));
-        return userRepository.save(newUser);
+        user.setPassword(bcryptEncoder.encode(user.getPassword()));
+        return userRepository.save(user);
     }
 
 }
