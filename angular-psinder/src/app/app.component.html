@@ -1,13 +1,63 @@
-<!-- Toolbar -->
-<div class="toolbar" role="banner">
-  <a class="logo" routerLink="/">
-    <i class="fas fa-paw fa-2x"></i>
+<!-- TOOLBAR -->
+<nav class="navbar navbar-expand-lg navbar-dark toolbar">
+  <a class="navbar-brand logo" routerLink="/">
+    <i
+      class="fas fa-paw fa-2x d-inline-block"
+      width="30"
+      height="30"
+      alt=""
+    ></i>
     <span>PSINDER</span>
   </a>
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-toggle="collapse"
+    data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+  >
+    <span class="navbar-toggler-icon"></span>
+  </button>
 
-  <div class="spacer-left"></div>
-  <button class="btn btn-light mr-5">Zaloguj</button>
-  <div class="spacer-right"></div>
-</div>
+  <div class="navbar-collapse collapse w-" id="navbarSupportedContent">
+    <ul class="navbar-nav ms-3">
+      <li class="nav-item active">
+        <a class="nav-link" routerLink="/pets">Przeglądaj psy</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/choose-connection">Twoje połączenia</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Dodaj psa</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Szukaj wyprowadzacza</a>
+      </li>
+    </ul>
+    <ul class="navbar-nav ms-auto me-3">
+      <li class="nav-item ms-3 me-3" *ngIf="isAuthenticated()">
+        <a class="nav-link" routerLink="/profile"> {{ username }}</a>
+      </li>
+      <li class="nav-item mx-auto">
+        <a
+          class="nav-link btn btn-light text-black"
+          type="button"
+          routerLink="/login"
+          *ngIf="!isAuthenticated()"
+          >Zaloguj</a
+        >
+        <a
+          class="nav-link btn btn-light text-black"
+          type="button"
+          routerLink="/logout"
+          *ngIf="isAuthenticated()"
+          >Wyloguj</a
+        >
+      </li>
+    </ul>
+  </div>
+</nav>
 
 <router-outlet></router-outlet>
