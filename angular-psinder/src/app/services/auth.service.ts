@@ -48,6 +48,7 @@ export class AuthService {
 
   logOut() {
     sessionStorage.removeItem("username");
+    sessionStorage.removeItem("token");
     this.username.next("");
   }
 

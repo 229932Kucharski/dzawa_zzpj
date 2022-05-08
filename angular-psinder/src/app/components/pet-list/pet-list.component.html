@@ -1,5 +1,163 @@
 <div class="content">
-  <div *ngFor="let pet of pets" class="col-md-3">
-    <h1>{{ pet.name }}</h1>
+  <div *ngIf="pets.length == 0">
+    <div class="row w-75 mx-auto">
+      <div class="col">
+        <img src="assets/img/no_dogs.svg" class="img-fluid" />
+      </div>
+    </div>
+    <div class="row w-75 mx-auto mt-3">
+      <div class="col text-center">
+        <h1 class="display-6">Nie znaleziono więcej psów</h1>
+      </div>
+    </div>
+  </div>
+  <div class="row align-items-center container-fluid" *ngIf="pets.length > 0">
+    <div class="col mb-3 mt-3">
+      <a (click)="remove()">
+        <div class="mx-auto navigation-cross-button text-center">
+          <i class="fa-solid fa-circle-arrow-left fa-7x"></i>
+        </div>
+      </a>
+    </div>
+    <div class="col">
+      <div class="card my-dog-card mx-auto shadow">
+        <img
+          src="assets/img/dogs/undefined.jpg"
+          class="card-img-top img-fluid dog-img mx-auto"
+          alt="Dog image"
+        />
+        <div class="card-body">
+          <h5 class="card-title text-center">{{ currentPet?.name }}</h5>
+          <p class="card-text">
+            {{ currentPet?.description }}
+          </p>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item"><b>Rasa:</b> {{ currentPet?.race }}</li>
+          <li class="list-group-item">
+            <b class="w-50">Rozmiar:</b> {{ currentPet?.size }}
+          </li>
+          <li class="list-group-item">
+            <b>Lokalizacja:</b> {{ currentPet?.address?.city }},
+            {{ currentPet?.address?.street }}
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="col mt-3 mb-3">
+      <a (click)="add()">
+        <div class="navigation-tick-button align-middle text-center" if="tick">
+          <i class="fa-solid fa-circle-arrow-right fa-7x"></i>
+        </div>
+      </a>
+    </div>
+  </div>
+  <div class="row align-items-center container-fluid mt-5 pb-5">
+    <!-- FORM -->
+    <form>
+      <div class="form-group row justify-content-center">
+        <label for="petRace" class="col-sm-2 col-form-label">Rasa psa</label>
+        <div class="col-sm-5">
+          <input
+            name="race"
+            [(ngModel)]="race"
+            type="text"
+            class="form-control"
+            placeholder="Szukaj po rasie psa..."
+          />
+        </div>
+      </div>
+      <div class="form-group row mt-3 justify-content-center">
+        <div class="col-sm-2">Rozmiary</div>
+        <div class="col-sm-5">
+          <div class="form-check">
+            <input
+              name="smallSize"
+              [(ngModel)]="smallSize"
+              class="form-check-input"
+              type="checkbox"
+              checked
+            />
+            <label class="form-check-label"> Mały </label>
+          </div>
+          <div class="form-check">
+            <input
+              name="mediumSize"
+              [(ngModel)]="mediumSize"
+              class="form-check-input"
+              type="checkbox"
+              checked
+            />
+            <label class="form-check-label"> Średni </label>
+          </div>
+          <div class="form-check">
+            <input
+              name="largeSize"
+              [(ngModel)]="largeSize"
+              class="form-check-input"
+              type="checkbox"
+              checked
+            />
+            <label class="form-check-label"> Duży </label>
+          </div>
+        </div>
+      </div>
+      <div class="form-group row mt-3 justify-content-center">
+        <label for="petRace" class="col-sm-2 col-form-label">Miasto</label>
+        <div class="col-sm-5">
+          <input
+            name="city"
+            [(ngModel)]="city"
+            type="text"
+            class="form-control"
+            placeholder="Miasto"
+          />
+        </div>
+      </div>
+      <div class="form-group row mt-3 justify-content-center">
+        <label for="petRace" class="col-sm-2 col-form-label">Ulica</label>
+        <div class="col-sm-5">
+          <input
+            #streetInput
+            [(ngModel)]="street"
+            name="street"
+            type="text"
+            class="form-control"
+            placeholder="Ulica"
+            [disabled]="this.city.length == 0"
+          />
+        </div>
+      </div>
+      <div class="form-group row mt-3 justify-content-center">
+        <label for="petRace" class="col-sm-2 col-form-label"
+          >Odległość maksymalna</label
+        >
+        <div class="col-sm-5">
+          <input
+            name="distance"
+            [(ngModel)]="distance"
+            class="w-25 align-middle"
+            type="range"
+            value="50"
+            min="1"
+            max="50"
+            oninput="this.nextElementSibling.value = this.value"
+            [disabled]="this.street.length == 0"
+          />
+          <output class="ms-2">50</output>km
+        </div>
+      </div>
+      <div class="form-group row mt-3 justify-content-center">
+        <div class="col-sm-7 text-center">
+          <button
+            type="submit"
+            class="btn btn-primary btn-lg btn-filter"
+            (click)="search()"
+          >
+            Filtruj
+          </button>
+        </div>
+      </div>
+    </form>
   </div>
 </div>
