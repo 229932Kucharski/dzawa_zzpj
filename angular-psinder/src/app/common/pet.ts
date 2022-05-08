@@ -4,4 +4,8 @@ export class Pet {
     race: string;
     size: string;
     description: string;
+    address: {
+        city: string;
+        street: string;
+    }
 }
