@@ -1,5 +1,6 @@
 package pl.jawa.psinder.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -37,6 +38,7 @@ public class Connection {
     @Enumerated(EnumType.STRING)
     private Status status;
 
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "connection")
     private List<Chat> messages;
 
