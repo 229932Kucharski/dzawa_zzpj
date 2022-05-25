@@ -54,8 +54,8 @@ public class ConnectionController {
     public ResponseEntity<String> create(@RequestBody Connection newConnection) {
         try {
             Connection connection = connectionRepository.save(newConnection);
-            return new ResponseEntity<>(String.valueOf(connection.getId()), HttpStatus.OK);
 
+            return new ResponseEntity<>(String.valueOf(connection.getId()), HttpStatus.OK);
         } catch (Exception ex) {
             System.out.print(ex.getMessage());
             return new ResponseEntity<>("Could not create connection", HttpStatus.BAD_REQUEST);
@@ -74,6 +74,18 @@ public class ConnectionController {
         } catch (Exception ex) {
             System.out.print(ex.getMessage());
             return new ResponseEntity<>("Could not modify connection status", HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @DeleteMapping(path = "delete", params = "id")
+    public ResponseEntity<String> deleteById(@RequestParam("id") long id) {
+        try {
+            connectionRepository.deleteById(id);
+
+            return new ResponseEntity<>("Connection deleted", HttpStatus.OK);
+        } catch (Exception ex) {
+            System.out.print(ex.getMessage());
+            return new ResponseEntity<>("Could not delete connection", HttpStatus.BAD_REQUEST);
         }
     }
 }
