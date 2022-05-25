@@ -10,6 +10,7 @@ import pl.jawa.psinder.repository.ConnectionRepository;
 
 import java.rmi.ServerException;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/connections")
@@ -26,6 +27,11 @@ public class ConnectionController {
         return connectionRepository.findAll();
     }
 
+    @GetMapping(value = "", params = "id")
+    public Optional<Connection> getConnectionById(@RequestParam("id") long id) {
+        return connectionRepository.findById(id);
+    }
+
     @GetMapping(value = "", params = "ownerid")
     public List<Connection> getConnectionsByOwnerId(@RequestParam("ownerid") int id) {
         return connectionRepository.findByOwnerId(id);
@@ -36,20 +42,22 @@ public class ConnectionController {
         return connectionRepository.findByWalkerId(id);
     }
 
-    @GetMapping(value = "", params = "status")
-    public List<Connection> getConnectionsByStatus(@RequestParam("status") String status) {
-        return connectionRepository.findByStatus(status);
+    @GetMapping(value = "", params = {"ownerid", "status"})
+    public List<Connection> getConnectionsByStatus(@RequestParam("ownerid") int id, @RequestParam("status") String status) {
+        return connectionRepository.findByStatus(id, status);
     }
 
     @PostMapping(path = "create",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Connection> create(@RequestBody Connection newConnection) {
-        Connection connection = connectionRepository.save(newConnection);
-        if (connection == null) {
-            return new ResponseEntity<>(connection, HttpStatus.METHOD_FAILURE);
-        } else {
-            return new ResponseEntity<>(connection, HttpStatus.CREATED);
+    public ResponseEntity<String> create(@RequestBody Connection newConnection) {
+        try {
+            Connection connection = connectionRepository.save(newConnection);
+            return new ResponseEntity<>(String.valueOf(connection.getId()), HttpStatus.OK);
+
+        } catch (Exception ex) {
+            System.out.print(ex.getMessage());
+            return new ResponseEntity<>("Could not create connection", HttpStatus.BAD_REQUEST);
         }
     }
 }

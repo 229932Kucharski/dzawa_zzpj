@@ -17,6 +17,6 @@ public interface ConnectionRepository extends JpaRepository<Connection, Long> {
     @Query (value = "SELECT * FROM Connection WHERE walker_id = :walkerId", nativeQuery = true)
     List<Connection> findByWalkerId(@Param("walkerId") int walkerId);
 
-    @Query (value = "SELECT * FROM Connection WHERE status = :status", nativeQuery = true)
-    List<Connection> findByStatus(@Param("status") String status);
+    @Query (value = "SELECT * FROM Connection WHERE owner_id = :ownerId AND status = :status", nativeQuery = true)
+    List<Connection> findByStatus(@Param("ownerId") int ownerId, @Param("status") String status);
 }
