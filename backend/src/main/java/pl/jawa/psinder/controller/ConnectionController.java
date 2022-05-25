@@ -6,6 +6,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.jawa.psinder.entity.Connection;
+import pl.jawa.psinder.enums.Status;
 import pl.jawa.psinder.repository.ConnectionRepository;
 
 import java.rmi.ServerException;
@@ -58,6 +59,21 @@ public class ConnectionController {
         } catch (Exception ex) {
             System.out.print(ex.getMessage());
             return new ResponseEntity<>("Could not create connection", HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PutMapping(path = "status-update",
+            produces = MediaType.APPLICATION_JSON_VALUE, params = {"connectionid", "status"})
+    public ResponseEntity<String> statusChange(@RequestParam("connectionid") long id, @RequestParam("status") String status) {
+        try {
+            Connection connection = connectionRepository.getById(id);
+            connection.setStatus(Status.valueOf(status));
+
+            connection = connectionRepository.save(connection);
+            return new ResponseEntity<>(String.valueOf(connection.getId()), HttpStatus.OK);
+        } catch (Exception ex) {
+            System.out.print(ex.getMessage());
+            return new ResponseEntity<>("Could not modify connection status", HttpStatus.BAD_REQUEST);
         }
     }
 }
