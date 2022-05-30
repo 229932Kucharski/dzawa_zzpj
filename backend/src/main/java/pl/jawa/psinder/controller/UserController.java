@@ -22,6 +22,11 @@ public class UserController {
         this.userRepository = userRepository;
     }
 
+    //get all users from repository
+    @GetMapping("/all")
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
+    }
     @GetMapping("")
     public ResponseEntity<?> getUserByUsername(@RequestParam("username")String username) {
         User user = userRepository.findByUsername(username);
