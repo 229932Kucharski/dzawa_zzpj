@@ -2,13 +2,11 @@ package pl.jawa.psinder.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pl.jawa.psinder.dto.UserDto;
 import pl.jawa.psinder.entity.User;
 import pl.jawa.psinder.repository.UserRepository;
+import pl.jawa.psinder.service.UserService;
 
 import java.util.List;
 
@@ -16,20 +14,21 @@ import java.util.List;
 @RequestMapping("/users")
 public class UserController {
 
-    private final UserRepository userRepository;
+    private final UserService userService;
 
-    public UserController(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
     //get all users from repository
     @GetMapping("/all")
     public List<User> getAllUsers() {
-        return userRepository.findAll();
+        return userService.getAllUsers();
     }
+    //get one specific user
     @GetMapping("")
     public ResponseEntity<?> getUserByUsername(@RequestParam("username")String username) {
-        User user = userRepository.findByUsername(username);
+        User user = userService.getUserByUsername(username);
         if (user == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
         }
