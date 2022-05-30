@@ -9,6 +9,7 @@ import pl.jawa.psinder.repository.UserRepository;
 import pl.jawa.psinder.service.UserService;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/users")
@@ -25,15 +26,27 @@ public class UserController {
     public List<User> getAllUsers() {
         return userService.getAllUsers();
     }
-    //get one specific user
-    @GetMapping("")
-    public ResponseEntity<?> getUserByUsername(@RequestParam("username")String username) {
-        User user = userService.getUserByUsername(username);
-        if (user == null) {
+    //get one specific user using their username
+    @GetMapping("/name/{username}")
+    public ResponseEntity<?> getUserByUsername(@PathVariable String username) {
+        Optional<User> user = userService.getUserByUsername(username);
+        if (user.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
         }
         UserDto userDto = new UserDto(
-                user.getUsername(), user.getFirstName(), user.getLastName(), user.getEmail()
+                user.get().getUsername(), user.get().getFirstName(), user.get().getLastName(), user.get().getEmail()
+        );
+        return ResponseEntity.ok(userDto);
+    }
+    //get one specific user using their ID
+    @GetMapping("/id/{id}")
+    public ResponseEntity<?> getUserById(@PathVariable long id) {
+        Optional<User> user = userService.getUserById(id);
+        if (user.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+        }
+        UserDto userDto = new UserDto(
+                user.get().getUsername(), user.get().getFirstName(), user.get().getLastName(), user.get().getEmail()
         );
         return ResponseEntity.ok(userDto);
     }
