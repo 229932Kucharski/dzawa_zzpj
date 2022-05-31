@@ -30,11 +30,11 @@ public class UserController {
         List<UserDto> allUsersSafeData = new ArrayList<>();
         for (User user : allUsers) {
             UserDto userDto = new UserDto(
+                    user.getId(),
                     user.getUsername(),
                     user.getFirstName(),
                     user.getLastName(),
-                    user.getEmail()
-            );
+                    user.getEmail());
             allUsersSafeData.add(userDto);
         }
         return allUsersSafeData;
@@ -47,8 +47,11 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
         }
         UserDto userDto = new UserDto(
-                user.get().getUsername(), user.get().getFirstName(), user.get().getLastName(), user.get().getEmail()
-        );
+                user.get().getId(),
+                user.get().getUsername(),
+                user.get().getFirstName(),
+                user.get().getLastName(),
+                user.get().getEmail());
         return ResponseEntity.ok(userDto);
     }
     //get one specific user using their ID
@@ -59,8 +62,11 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
         }
         UserDto userDto = new UserDto(
-                user.get().getUsername(), user.get().getFirstName(), user.get().getLastName(), user.get().getEmail()
-        );
+                user.get().getId(),
+                user.get().getUsername(),
+                user.get().getFirstName(),
+                user.get().getLastName(),
+                user.get().getEmail());
         return ResponseEntity.ok(userDto);
     }
     //create new user
