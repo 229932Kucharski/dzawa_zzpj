@@ -1,14 +1,16 @@
 package pl.jawa.psinder.controller;
 
+import org.springframework.boot.context.config.ConfigDataResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.ResourceAccessException;
 import pl.jawa.psinder.dto.UserDto;
 import pl.jawa.psinder.entity.User;
-import pl.jawa.psinder.repository.UserRepository;
 import pl.jawa.psinder.service.UserService;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @RestController
@@ -53,22 +55,26 @@ public class UserController {
 
     @PostMapping("/add")
     public User createUser(@RequestBody UserDto userDto, @RequestParam(name = "password", required = false)String password) {
-        if(password == null) {
-            return userService.addUser(new User(
-                    userService.getCreationId(),
-                    userDto.getFirstName(),
-                    userDto.getLastName(),
-                    userDto.getUsername(),
-                    "password",
-                    userDto.getEmail()));
-        }
-        return  userService.addUser(new User(
+        return userService.addUser(new User(
                 userService.getCreationId(),
                 userDto.getFirstName(),
                 userDto.getLastName(),
                 userDto.getUsername(),
-                password,
+                Objects.requireNonNullElse(password, "defaultPassword"),
                 userDto.getEmail()));
     }
+
+    @PatchMapping("/update/{id}")
+    public ResponseEntity<User> updateUser(@RequestBody UserDto userDto, @PathVariable long id) throws ResourceAccessException {
+        User user = userService.getUserById(id).orElseThrow(() -> new ResourceAccessException("User not found on :: "+ id));
+        user.setFirstName(userDto.getFirstName());
+        user.setLastName(userDto.getLastName());
+        user.setUsername(userDto.getUsername());
+        user.setEmail(userDto.getEmail());
+        final User updatedUser = userService.updateUser(user);
+        return ResponseEntity.ok(updatedUser);
+    }
+
+
 
 }

@@ -33,7 +33,6 @@ public class UserService {
     }
     public long getCreationId() {
         List<User> temp = userRepository.findAllByOrderByIdDesc();
-        long newId = temp.get(0).getId() + 1;
-        return newId;
+        return temp.get(0).getId() + 1;
     }
 }
