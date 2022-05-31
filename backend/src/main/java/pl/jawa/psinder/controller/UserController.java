@@ -1,6 +1,5 @@
 package pl.jawa.psinder.controller;
 
-import org.springframework.boot.context.config.ConfigDataResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -9,6 +8,7 @@ import pl.jawa.psinder.dto.UserDto;
 import pl.jawa.psinder.entity.User;
 import pl.jawa.psinder.service.UserService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -25,8 +25,19 @@ public class UserController {
 
     //get all users from repository
     @GetMapping("/all")
-    public List<User> getAllUsers() {
-        return userService.getAllUsers();
+    public List<UserDto> getAllUsers() {
+        List<User> allUsers = userService.getAllUsers();
+        List<UserDto> allUsersSafeData = new ArrayList<>();
+        for (User user : allUsers) {
+            UserDto userDto = new UserDto(
+                    user.getUsername(),
+                    user.getFirstName(),
+                    user.getLastName(),
+                    user.getEmail()
+            );
+            allUsersSafeData.add(userDto);
+        }
+        return allUsersSafeData;
     }
     //get one specific user using their username
     @GetMapping("/name/{username}")
