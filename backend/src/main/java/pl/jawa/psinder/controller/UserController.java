@@ -52,7 +52,7 @@ public class UserController {
         );
         return ResponseEntity.ok(userDto);
     }
-
+    //create new user
     @PostMapping("/add")
     public User createUser(@RequestBody UserDto userDto, @RequestParam(name = "password", required = false)String password) {
         return userService.addUser(new User(
@@ -63,7 +63,7 @@ public class UserController {
                 Objects.requireNonNullElse(password, "defaultPassword"),
                 userDto.getEmail()));
     }
-
+    //update existing user
     @PatchMapping("/update/{id}")
     public ResponseEntity<User> updateUser(@RequestBody UserDto userDto, @PathVariable long id) throws ResourceAccessException {
         User user = userService.getUserById(id).orElseThrow(() -> new ResourceAccessException("User not found on :: "+ id));
@@ -74,7 +74,12 @@ public class UserController {
         final User updatedUser = userService.updateUser(user);
         return ResponseEntity.ok(updatedUser);
     }
-
+    //delete user
+    @DeleteMapping("{id}")
+    public ResponseEntity<String> deleteUser(@PathVariable long id) {
+        userService.deleteUser(id);
+        return ResponseEntity.ok("User with id " + id + " is removed.");
+    }
 
 
 }
