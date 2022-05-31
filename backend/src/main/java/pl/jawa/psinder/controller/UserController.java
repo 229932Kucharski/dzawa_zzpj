@@ -51,5 +51,24 @@ public class UserController {
         return ResponseEntity.ok(userDto);
     }
 
+    @PostMapping("/add")
+    public User createUser(@RequestBody UserDto userDto, @RequestParam(name = "password", required = false)String password) {
+        if(password == null) {
+            return userService.addUser(new User(
+                    userService.getCreationId(),
+                    userDto.getFirstName(),
+                    userDto.getLastName(),
+                    userDto.getUsername(),
+                    "password",
+                    userDto.getEmail()));
+        }
+        return  userService.addUser(new User(
+                userService.getCreationId(),
+                userDto.getFirstName(),
+                userDto.getLastName(),
+                userDto.getUsername(),
+                password,
+                userDto.getEmail()));
+    }
 
 }

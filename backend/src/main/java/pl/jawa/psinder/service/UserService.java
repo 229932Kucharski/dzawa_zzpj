@@ -1,6 +1,7 @@
 package pl.jawa.psinder.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import pl.jawa.psinder.entity.User;
 import pl.jawa.psinder.repository.UserRepository;
@@ -20,5 +21,19 @@ public class UserService {
     }
     public Optional<User> getUserByUsername(String username) {
         return userRepository.findByUsername(username);
+    }
+    public User addUser(User user) {
+        return userRepository.save(user);
+    }
+    public User updateUser(User user) {
+        return userRepository.save(user);
+    }
+    public void deleteUser(long id) {
+        userRepository.deleteById(id);
+    }
+    public long getCreationId() {
+        List<User> temp = userRepository.findAllByOrderByIdDesc();
+        long newId = temp.get(0).getId() + 1;
+        return newId;
     }
 }
