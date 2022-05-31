@@ -32,7 +32,7 @@ public class UserService {
         userRepository.deleteById(id);
     }
     public long getCreationId() {
-        List<User> temp = userRepository.findAllByOrderByIdDesc();
-        return temp.get(0).getId() + 1;
+        List<User> lastUser = userRepository.findTopByOrderByIdDesc();
+        return lastUser.get(0).getId() + 1;
     }
 }
