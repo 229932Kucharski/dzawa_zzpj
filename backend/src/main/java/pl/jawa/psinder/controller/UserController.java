@@ -69,17 +69,17 @@ public class UserController {
                 user.get().getEmail());
         return ResponseEntity.ok(userDto);
     }
-    //create new user
-    @PostMapping("/add")
-    public User createUser(@RequestBody UserDto userDto, @RequestParam(name = "password", required = false)String password) {
-        return userService.addUser(new User(
-                userService.getCreationId(),
-                userDto.getFirstName(),
-                userDto.getLastName(),
-                userDto.getUsername(),
-                Objects.requireNonNullElse(password, "defaultPassword"),
-                userDto.getEmail()));
-    }
+//    Commented out this code due to being replaced by save() from JwtAuthenticationController
+//    @PostMapping("/add")
+//    public User createUser(@RequestBody UserDto userDto, @RequestParam(name = "password", required = false)String password) {
+//        return userService.addUser(new User(
+//                userService.getCreationId(),
+//                userDto.getFirstName(),
+//                userDto.getLastName(),
+//                userDto.getUsername(),
+//                Objects.requireNonNullElse(password, "defaultPassword"),
+//                userDto.getEmail()));
+//    }
     //update existing user
     @PatchMapping("/update/{id}")
     public ResponseEntity<User> updateUser(@RequestBody UserDto userDto, @PathVariable long id) throws ResourceAccessException {

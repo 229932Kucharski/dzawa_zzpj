@@ -31,8 +31,9 @@ public class UserService {
     public void deleteUser(long id) {
         userRepository.deleteById(id);
     }
-    public long getCreationId() {
-        List<User> lastUser = userRepository.findTopByOrderByIdDesc();
-        return lastUser.get(0).getId() + 1;
-    }
+//    Commented out this code due to being replaced by save() from JwtAuthenticationController
+//    public long getCreationId() {
+//        List<User> lastUser = userRepository.findTopByOrderByIdDesc();
+//        return lastUser.get(0).getId() + 1;
+//    }
 }
