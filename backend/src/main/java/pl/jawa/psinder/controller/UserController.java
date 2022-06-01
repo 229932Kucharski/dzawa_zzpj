@@ -24,7 +24,7 @@ public class UserController {
     }
 
     //get all users from repository
-    @GetMapping("/all")
+    @GetMapping("")
     public List<UserDto> getAllUsers() {
         List<User> allUsers = userService.getAllUsers();
         List<UserDto> allUsersSafeData = new ArrayList<>();
@@ -40,7 +40,7 @@ public class UserController {
         return allUsersSafeData;
     }
     //get one specific user using their username
-    @GetMapping("/name/{username}")
+    @GetMapping("/username/{username}")
     public ResponseEntity<?> getUserByUsername(@PathVariable String username) {
         Optional<User> user = userService.getUserByUsername(username);
         if (user.isEmpty()) {
@@ -81,7 +81,7 @@ public class UserController {
 //                userDto.getEmail()));
 //    }
     //update existing user
-    @PatchMapping("/update/{id}")
+    @PatchMapping("/{id}")
     public ResponseEntity<User> updateUser(@RequestBody UserDto userDto, @PathVariable long id) throws ResourceAccessException {
         User user = userService.getUserById(id).orElseThrow(() -> new ResourceAccessException("User not found on :: "+ id));
         user.setFirstName(userDto.getFirstName());
