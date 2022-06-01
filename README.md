@@ -17,6 +17,7 @@ Before running project, export PSINDER_LOGIN and PSINDER_PASS as your enviroment
 
 Code in application.properties that is responsible for usage of env vars:
 ```
-spring.datasource.username=${PSINDER_LOGIN}
+spring.datasource.url=jdbc:mysql://${DB_HOSTNAME}:${DB_PORT}/${DB_NAME}
+spring.datasource.username=${PSINDER_USER}
 spring.datasource.password=${PSINDER_PASS}
 ```
