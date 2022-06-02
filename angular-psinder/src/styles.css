@@ -41,6 +41,7 @@ p {
 a{
   color: #ff9100;
   text-decoration: none;
+  cursor: pointer;
 }
 
 a:hover {
@@ -118,6 +119,12 @@ a.logo:hover {
   padding: 30px;
 }
 
+.my-card:hover {
+  box-shadow: 0 .1rem 0.5rem #ff9100!important;
+  transition: 0.3s;
+}
+
+
 .my-card-link {
   color: black;
   text-decoration: none;
@@ -129,8 +136,78 @@ a.logo:hover {
   border: 1px solid #ff9100;
 }
 
-
 .my-card-link:hover img {
   opacity: 1;
   transition: 0.3s;
 }
+
+/* ========================= */
+/*          DOG LIST         */ 
+/* ========================= */
+
+.my-dog-card {
+  background-color: #eee !important;
+  padding: 20px;
+  width: 30rem;
+}
+
+.my-dog-card li{
+  background-color: #eee !important;
+}
+
+.navigation-cross-button {
+  color: #e68e8e;
+}
+
+.navigation-tick-button {
+  color: #8ee6a6;
+}
+
+.dog-img{
+  width: 300px !important;
+}
+
+.nav-icon{
+  font-size: 10vw;
+}
+
+.btn-filter{
+  background-color: #ff9100 !important;
+  border: none !important;
+}
+
+
+/* ========================= */
+/*        ADDITIONAL         */ 
+/* ========================= */
+
+textarea:focus,
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="datetime"]:focus,
+input[type="datetime-local"]:focus,
+input[type="date"]:focus,
+input[type="month"]:focus,
+input[type="time"]:focus,
+input[type="week"]:focus,
+input[type="number"]:focus,
+input[type="email"]:focus,
+input[type="search"]:focus,
+input[type="color"]:focus,
+input[type="checkbox"]:focus,
+.uneditable-input:focus {   
+  border-color: #ff9100;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px #ff9100;
+  outline: 0 none;
+}
+
+input[type="range"]:focus {
+  box-shadow: none;
+  outline: 0 none;
+}
+
+input[type="checkbox"]:checked {
+  background-color: #ff9100;
+  border: none
+}
+
