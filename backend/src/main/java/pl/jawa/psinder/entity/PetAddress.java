@@ -1,7 +1,9 @@
 package pl.jawa.psinder.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import pl.jawa.psinder.enums.Days;
 
 import javax.persistence.*;
@@ -9,6 +11,8 @@ import javax.persistence.*;
 @Entity
 @Table(name = "petaddress")
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class PetAddress {
 
     @Id
