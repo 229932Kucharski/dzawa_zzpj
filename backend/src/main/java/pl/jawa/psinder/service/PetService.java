@@ -8,8 +8,11 @@ import pl.jawa.psinder.entity.User;
 import pl.jawa.psinder.repository.PetRepository;
 import pl.jawa.psinder.webclient.AddressDistanceClient;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -17,7 +20,9 @@ public class PetService {
     private final PetRepository petRepository;
 
     public List<Pet> getPets() {
-        return petRepository.findAll();
+        List<Pet> pets = petRepository.findAll();
+        Collections.shuffle(pets);
+        return pets;
     }
 
     public Optional<Pet> getPet(long id) {
@@ -36,13 +41,16 @@ public class PetService {
         petRepository.deleteById(id);
     }
 
-    public List<Pet> getFilteredPets(String race, String size, String city, String street, double distance) {
+    public List<Pet> getFilteredPets(String race, List<String> sizes, String city, String street, Double distance) {
         List<Pet> result = getPets();
         if (race != null) {
-            result = result.stream().filter(pet -> pet.getRace().equals(race)).toList();
+            result = result.stream().filter(pet -> pet.getRace().toLowerCase(Locale.ROOT).contains(race.toLowerCase(Locale.ROOT))).toList();
         }
-        if (size != null) {
-            result = result.stream().filter(pet -> pet.getSize().equals(size)).toList();
+        if (sizes != null) {
+            result = result.stream().filter(pet -> {
+                String petSize = pet.getSize().toLowerCase(Locale.ROOT);
+                return sizes.contains(petSize);
+            }).toList();
         }
         if (city !=null) {
             if (street !=null) {
@@ -50,17 +58,20 @@ public class PetService {
                 AddressDistanceClient client = new AddressDistanceClient();
                 result = result.stream().filter(pet ->
                 {
-                    String tmp = pet.getAddress().getStreet()
-                            + ", " + pet.getAddress().getCity();
+                    String tmp = pet.getAddress().getCity()
+                            + ", " + pet.getAddress().getStreet();
                     try {
                         double dist = client.getDistance(address, tmp);
+                        if (dist == -1.0) {
+                            return false;
+                        }
                         return dist <= distance;
                     } catch (JsonProcessingException e) {
                         return false;
                     }
-                }).toList();
+                }).collect(Collectors.toList());
             } else {
-                result = result.stream().filter(pet -> pet.getAddress().getCity().equals(city)).toList();
+                result = result.stream().filter(pet -> pet.getAddress().getCity().toLowerCase(Locale.ROOT).equals(city.toLowerCase(Locale.ROOT))).toList();
             }
         }
         return result;

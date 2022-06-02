@@ -44,13 +44,25 @@ export class PetListComponent implements OnInit {
   }
 
   search() {
-    console.log(this.race);
-    console.log(this.smallSize);
-    console.log(this.mediumSize);
-    console.log(this.largeSize);
-    console.log(this.city);
-    console.log(this.street);
-    console.log(this.distance);
+    let sizes = [];
+    if (this.smallSize) {
+      sizes.push("small"); 
+    } 
+    if (this.mediumSize) {
+      sizes.push("medium")
+    } 
+    if (this.largeSize) {
+      sizes.push("big")
+    }
+    this.petService.getPetsFiltered(this.race, sizes, this.city, this.street, this.distance).subscribe(data => {
+      this.pets = data
+      if (this.pets.length > 0) {
+        this.currentIndex = 0;
+        this.currentPet = this.pets[this.currentIndex];
+      } else {
+        this.pets = [];
+      }
+    });
   }
 
   add() {

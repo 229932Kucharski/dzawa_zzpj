@@ -28,13 +28,14 @@ export class AuthService {
         this.username.next(username);
         let tokenStr = "Bearer " + userData.token;
         sessionStorage.setItem("token", tokenStr);
+        sessionStorage.setItem("user_id", userData.id);
         return userData;
       })
     );
   }
 
   getUser(username: string) {
-    return this.httpClient.get<UserData>(`${this.userUrl}?username=${username}`);
+    return this.httpClient.get<UserData>(`${this.userUrl}/username/${username}`);
   }
 
   register(user: User) {
@@ -49,6 +50,7 @@ export class AuthService {
   logOut() {
     sessionStorage.removeItem("username");
     sessionStorage.removeItem("token");
+    sessionStorage.removeItem("user_id");
     this.username.next("");
   }
 

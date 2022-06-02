@@ -68,11 +68,11 @@ public class PetController {
 
     //get pet with filters
     @GetMapping("/pets/filtered")
-    public List<Pet> getFilteredPets(@Param("race") String race,
-                                     @Param("size") String size,
-                                     @Param("city") String city,
-                                     @Param("street") String street,
-                                     @Param("distance") double distance) {
+    public List<Pet> getFilteredPets(@RequestParam(value = "race", required = false) String race,
+                                     @RequestParam(value = "size", required = false) List<String> size,
+                                     @RequestParam(value = "city", required = false) String city,
+                                     @RequestParam(value = "street", required = false) String street,
+                                     @RequestParam(value = "distance", required = false) Double distance) {
         return petService.getFilteredPets(race, size, city, street, distance);
     }
 

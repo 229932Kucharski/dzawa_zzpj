@@ -1,12 +1,13 @@
 package pl.jawa.psinder.dto;
 
 public class UserDto {
+    private long id;
     private String username;
     private String firstName;
     private String lastName;
     private String email;
 
-    private long id;
+
 
     public UserDto(long id, String username, String firstName, String lastName, String email) {
         this.id = id;
@@ -14,6 +15,14 @@ public class UserDto {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getUsername() {

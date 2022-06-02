@@ -72,33 +72,36 @@
         <div class="col-sm-5">
           <div class="form-check">
             <input
-              name="smallSize"
+              class="form-check-input"
               [(ngModel)]="smallSize"
-              class="form-check-input"
               type="checkbox"
-              checked
+              name="smallSize"
             />
-            <label class="form-check-label"> Mały </label>
+            <label class="form-check-label" for="flexRadioDefault1">
+              Mały
+            </label>
           </div>
           <div class="form-check">
             <input
-              name="mediumSize"
+              class="form-check-input"
               [(ngModel)]="mediumSize"
-              class="form-check-input"
               type="checkbox"
-              checked
+              name="mediumSize"
             />
-            <label class="form-check-label"> Średni </label>
+            <label class="form-check-label" for="flexRadioDefault2">
+              Średni
+            </label>
           </div>
           <div class="form-check">
             <input
-              name="largeSize"
-              [(ngModel)]="largeSize"
               class="form-check-input"
+              [(ngModel)]="largeSize"
               type="checkbox"
-              checked
+              name="largeSize"
             />
-            <label class="form-check-label"> Duży </label>
+            <label class="form-check-label" for="flexRadioDefault2">
+              Duży
+            </label>
           </div>
         </div>
       </div>

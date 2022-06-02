@@ -13,6 +13,7 @@ import pl.jawa.psinder.model.JwtRequest;
 import pl.jawa.psinder.model.JwtResponse;
 import pl.jawa.psinder.security.JwtTokenUtil;
 import pl.jawa.psinder.service.JwtUserDetailsService;
+import pl.jawa.psinder.service.UserService;
 
 import java.util.Objects;
 
@@ -23,13 +24,15 @@ public class JwtAuthenticationController {
     private final AuthenticationManager authenticationManager;
     private final JwtTokenUtil jwtTokenUtil;
     private final JwtUserDetailsService userDetailsService;
+    private final UserService userService;
 
     public JwtAuthenticationController(AuthenticationManager authenticationManager,
-                                       JwtTokenUtil jwtTokenUtil,
-                                       JwtUserDetailsService  userDetailsService) {
+                                       JwtTokenUtil jwtTokenUtil, JwtUserDetailsService userDetailsService,
+                                       UserService userService) {
         this.authenticationManager = authenticationManager;
         this.jwtTokenUtil = jwtTokenUtil;
         this.userDetailsService = userDetailsService;
+        this.userService = userService;
     }
 
     @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
@@ -40,7 +43,8 @@ public class JwtAuthenticationController {
         final UserDetails userDetails = userDetailsService
                 .loadUserByUsername(authenticationRequest.getUsername());
         final String token = jwtTokenUtil.generateToken(userDetails);
-        return ResponseEntity.ok(new JwtResponse(token));
+        long id = userService.getUserByUsername(authenticationRequest.getUsername()).get().getId();
+        return ResponseEntity.ok(new JwtResponse(token, authenticationRequest.getUsername(), id));
     }
 
     @PostMapping("/register")
