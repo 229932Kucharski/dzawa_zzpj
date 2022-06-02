@@ -1,0 +1,45 @@
+name: Heroku
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  deploy:
+
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up JDK 11
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'corretto'
+        cache: maven
+
+#     - name: Build with Maven
+#       env:
+#         PSINDER_PASS: ${{ secrets.PSINDER_PASS }}
+#         PSINDER_USER: ${{ secrets.PSINDER_USER }}
+#         DB_PORT: ${{ secrets.DB_PORT }}
+#         DB_NAME: ${{ secrets.DB_NAME }}
+#         DB_HOSTNAME: ${{ secrets.DB_HOSTNAME }}
+#       run: mvn -B package --file ./backend/pom.xml
+
+    - name: Heroku deploy backend
+      uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
+      with:
+        heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+        heroku_app_name: "psinderpl" #Must be unique in Heroku
+        heroku_email: "nivgvrv@gmail.com"
+        
+    - name: Heroku deploy frontend
+      uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
+      with:
+        heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+        heroku_app_name: "thepsinder" #Must be unique in Heroku
+        heroku_email: "nivgvrv@gmail.com"
