@@ -1,7 +1,7 @@
 package pl.jawa.psinder.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Data;
+import lombok.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -11,12 +11,16 @@ import java.util.List;
 @Entity
 @Table(name = "pet")
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 public class Pet {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private long id;
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
