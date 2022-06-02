@@ -11,12 +11,12 @@ import java.util.List;
 @Repository
 public interface ConnectionRepository extends JpaRepository<Connection, Long> {
 
-    @Query (value = "SELECT * FROM Connection WHERE owner_id = :ownerId", nativeQuery = true)
+    @Query (value = "SELECT * FROM connection WHERE owner_id = :ownerId", nativeQuery = true)
     List<Connection> findByOwnerId(@Param("ownerId") int ownerId);
 
-    @Query (value = "SELECT * FROM Connection WHERE walker_id = :walkerId", nativeQuery = true)
+    @Query (value = "SELECT * FROM connection WHERE walker_id = :walkerId", nativeQuery = true)
     List<Connection> findByWalkerId(@Param("walkerId") int walkerId);
 
-    @Query (value = "SELECT * FROM Connection WHERE owner_id = :ownerId AND status = :status", nativeQuery = true)
+    @Query (value = "SELECT * FROM connection WHERE owner_id = :ownerId AND status = :status", nativeQuery = true)
     List<Connection> findByStatus(@Param("ownerId") int ownerId, @Param("status") String status);
 }
