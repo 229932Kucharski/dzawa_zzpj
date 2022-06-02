@@ -13,6 +13,7 @@ export class AuthService {
   private authenticateUrl = environment.baseUrl + '/authenticate';
   private registerUrl = environment.baseUrl + '/register';
   private userUrl = environment.baseUrl + '/users';
+  private validateUrl = environment.baseUrl + '/validate';
 
   username: Subject<string> = new BehaviorSubject<string>("");
 
@@ -34,6 +35,10 @@ export class AuthService {
     );
   }
 
+  validate(token: string, username: string) {
+    return this.httpClient.post<any>(this.validateUrl, {token, username});
+  }
+
   getUser(username: string) {
     return this.httpClient.get<UserData>(`${this.userUrl}/username/${username}`);
   }
@@ -44,7 +49,8 @@ export class AuthService {
 
   isUserLoggedIn() {
     let user = sessionStorage.getItem("username");
-    return !(user === null);
+    let token = sessionStorage.getItem("token");
+    return !(user === null) && !(token === null);
   }
 
   logOut() {

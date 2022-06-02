@@ -1,17 +1,17 @@
 <div class="card w-50 mx-auto mt-5">
-  <h5 class="card-header text-center">{{ currentUser!.username }}</h5>
+  <h5 class="card-header text-center">{{ currentUser?.username }}</h5>
   <div class="card-body">
     <h5 class="card-title">Imię</h5>
     <p class="card-text">
-      {{ currentUser!.firstName }}
+      {{ currentUser?.firstName }}
     </p>
     <h5 class="card-title">Nazwisko</h5>
     <p class="card-text">
-      {{ currentUser!.lastName }}
+      {{ currentUser?.lastName }}
     </p>
     <h5 class="card-title">Email</h5>
     <p class="card-text">
-      {{ currentUser!.email }}
+      {{ currentUser?.email }}
     </p>
   </div>
 </div>
