@@ -21,7 +21,7 @@ const routes: Routes = [
   {path: 'profile', component: UserPageComponent, canActivate:[AuthGuardService]},
   {path: 'signup', component: SignupComponent},
   {path: 'login', component: LoginComponent},
-  {path: 'logout', component: LogoutComponent, canActivate:[AuthGuardService]},
+  {path: 'logout', component: LogoutComponent},
   {path: 'pets', component: PetListComponent, canActivate:[AuthGuardService]},
   {path: '', redirectTo: '/', pathMatch: 'full'},
   {path: '**', redirectTo: '/', pathMatch: 'full'},
