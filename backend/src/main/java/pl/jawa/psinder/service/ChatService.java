@@ -1,7 +1,6 @@
 package pl.jawa.psinder.service;
 
 
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.jawa.psinder.entity.Chat;
@@ -20,15 +19,11 @@ public class ChatService {
         return chatRepository.findAll();
     }
 
-    public List<Chat> getChatsByUserId(long id) {
-        return chatRepository.findChatsByUserId(id);
-    }
-
     public List<Chat> getChatByConnectionId(long id) {
         return chatRepository.findChatsByConnectionId(id);
     }
 
-    public Optional<Chat> getChatById(long id) {
+    public Chat getChatById(long id) {
         return chatRepository.findById(id);
     }
 
@@ -36,7 +31,8 @@ public class ChatService {
         return chatRepository.save(chat);
     }
 
-    public Chat updateChat(Chat chat) {
+    public Chat updateChat(long id) {
+        Chat chat = getChatById(id);
         return chatRepository.save(chat);
     }
 }
