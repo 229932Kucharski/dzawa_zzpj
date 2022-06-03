@@ -11,5 +11,5 @@ import java.util.List;
 @Repository
 public interface ChatRepository extends JpaRepository<Chat, Long> {
 
-    List<Chat> findChatsById(@Param("id") long userId);
+    List<Chat> findChatsByUserId(@Param("id") long userId);
 }
