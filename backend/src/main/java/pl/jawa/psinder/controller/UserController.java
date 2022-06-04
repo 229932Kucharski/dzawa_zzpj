@@ -105,14 +105,14 @@ public class UserController {
     @PostMapping("/{id}/verification")
     public ResponseEntity<String>  sendToVerify (@RequestBody VerificationDto verificationDto, @PathVariable long id) {
         User user = userService.getUserById(id).orElseThrow(() -> new ResourceAccessException("User not found on :: "+ id));
-        String userLogin = user.getUsername();
-        String userfName = user.getFirstName();
-        String userlName = user.getLastName();
 
-        Long companyRegon = verificationDto.getRegon();
-        String companyAddress = verificationDto.getAddress();
-
-        emailService.sendVerificationMessage("testujemy", "byzobaczyc", "czydziala");
+        emailService.sendVerificationMessage(
+                user.getUsername(),
+                user.getFirstName(),
+                user.getLastName(),
+                verificationDto.getRegon(),
+                verificationDto.getAddress()
+        );
 
         return ResponseEntity.ok("The application has been sent for verification");
     }
