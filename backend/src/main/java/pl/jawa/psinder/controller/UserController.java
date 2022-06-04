@@ -5,8 +5,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.ResourceAccessException;
 import pl.jawa.psinder.dto.UserDto;
+import pl.jawa.psinder.dto.VerificationDto;
 import pl.jawa.psinder.entity.User;
 import pl.jawa.psinder.service.UserService;
+import pl.jawa.psinder.webclient.MailSender;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,9 +20,11 @@ import java.util.Optional;
 public class UserController {
 
     private final UserService userService;
+    private final MailSender emailService;
 
-    public UserController(UserService userService) {
+    public UserController(UserService userService, MailSender emailService) {
         this.userService = userService;
+        this.emailService = emailService;
     }
 
     //get all users from repository
@@ -98,5 +102,19 @@ public class UserController {
         return ResponseEntity.ok("User with id " + id + " is removed.");
     }
 
+    @PostMapping("/{id}/verification")
+    public ResponseEntity<String>  sendToVerify (@RequestBody VerificationDto verificationDto, @PathVariable long id) {
+        User user = userService.getUserById(id).orElseThrow(() -> new ResourceAccessException("User not found on :: "+ id));
+        String userLogin = user.getUsername();
+        String userfName = user.getFirstName();
+        String userlName = user.getLastName();
+
+        Long companyRegon = verificationDto.getRegon();
+        String companyAddress = verificationDto.getAddress();
+
+        emailService.sendVerificationMessage("testujemy", "byzobaczyc", "czydziala");
+
+        return ResponseEntity.ok("The application has been sent for verification");
+    }
 
 }
