@@ -1,7 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { EMPTY, map, Observable } from 'rxjs';
-import { EMPTY_SUBSCRIPTION } from 'rxjs/internal/Subscription';
+import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Pet } from '../common/pet';
 
@@ -26,7 +25,6 @@ export class PetService {
       for (var size of sizes) {
         filtredPetsUrl += `size=${size}&`;
       }
-      
     }
     if (city != "") {
       filtredPetsUrl += `city=${city}&`;

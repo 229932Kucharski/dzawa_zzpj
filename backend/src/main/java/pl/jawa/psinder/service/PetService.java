@@ -54,7 +54,7 @@ public class PetService {
         }
         if (city !=null) {
             if (street !=null) {
-                String address = street + ", " + city;
+                String address = city + ", " + street;
                 AddressDistanceClient client = new AddressDistanceClient();
                 result = result.stream().filter(pet ->
                 {

@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs';
 import { Pet } from 'src/app/common/pet';
 import { AuthService } from 'src/app/services/auth.service';
+import { ConnectionService } from 'src/app/services/connection.service';
 import { PetService } from 'src/app/services/pet.service';
 
 @Component({
@@ -11,6 +12,8 @@ import { PetService } from 'src/app/services/pet.service';
   styleUrls: ['./pet-list.component.css']
 })
 export class PetListComponent implements OnInit {
+
+  petInConnections: Pet[] = [];
 
   pets: Pet[] = [];
   currentPet: Pet | undefined;
@@ -24,10 +27,11 @@ export class PetListComponent implements OnInit {
   street: string = "";
   distance: number = 50;
 
-  constructor(private petService: PetService, 
+  constructor(private petService: PetService, private conService: ConnectionService, 
     private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.readUserConnections();
     this.route.paramMap.subscribe(() => {
       this.listPets();
     })
@@ -35,12 +39,32 @@ export class PetListComponent implements OnInit {
 
   listPets() {
     this.petService.getPets().subscribe(data => {
-      this.pets = data
+      data.forEach(pet => {
+        if (!this.petExists(pet)) {
+          this.pets.push(pet);
+        }
+      })
       if (this.pets.length > 0) {
         this.currentIndex = 0;
         this.currentPet = this.pets[this.currentIndex];
       }
     });
+  }
+
+  private petExists(pet: Pet) {
+    return this.petInConnections.some(function(el) {
+      return el.id === pet.id;
+    }); 
+  }
+
+  readUserConnections() {
+    const userId = sessionStorage.getItem('user_id')!;
+    this.conService.getConnectionsForWalker(userId).subscribe(data => {
+      data.forEach(conn => {
+        this.petInConnections.push(conn.pet);
+      });
+    }
+    )
   }
 
   search() {

@@ -176,6 +176,68 @@ a.logo:hover {
   border: none !important;
 }
 
+/* ========================= */
+/*        CONN LIST          */ 
+/* ========================= */
+
+.connection-link {
+  text-decoration: none;
+  color: black;
+}
+
+.connection-link:hover {
+  color: black;
+}
+
+.connection-link:hover .connection-card{
+  color: black;
+  border: 1px solid #ff9100;
+}
+
+.connections-title {
+  width: 90vw;
+  text-align: center;
+}
+
+.section-content {
+  position: relative;
+  margin: 0 auto;
+  z-index: 1;
+}
+
+.section-content-p30 {
+  padding: 0 30px;
+}
+
+.connection-name {
+  text-decoration: none;
+}
+
+.connection-card {
+  margin: 50px 20px;
+  border: 1px solid rgba(0, 0, 0, 0.125)
+}
+
+.connection-delete {
+  color: rgb(255, 140, 140);
+}
+
+.state-waiting {
+  color: #ff9100 !important;
+}
+
+.state-canceled {
+  color: #ff7171 !important;
+}
+
+.state-accepted {
+  color: #1fb40b !important;
+}
+
+.staus-info {
+  position: absolute;
+  bottom: 15px;
+}
 
 /* ========================= */
 /*        ADDITIONAL         */ 

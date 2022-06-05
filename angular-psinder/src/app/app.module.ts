@@ -15,8 +15,11 @@ import { SignupComponent } from './components/signup/signup.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { UserPageComponent } from './components/user-page/user-page.component';
 import { ConnectionChooseComponent } from './components/connection-choose/connection-choose.component';
+import { ConnectionListWalkerComponent } from './components/connection-list-walker/connection-list-walker.component';
 
 const routes: Routes = [
+  {path: 'connections-walker/search/:keyword', component: ConnectionListWalkerComponent, canActivate:[AuthGuardService]},
+  {path: 'connections-walker', component: ConnectionListWalkerComponent, canActivate:[AuthGuardService]},
   {path: 'choose-connection', component: ConnectionChooseComponent, canActivate:[AuthGuardService]},
   {path: 'profile', component: UserPageComponent, canActivate:[AuthGuardService]},
   {path: 'signup', component: SignupComponent},
@@ -36,6 +39,7 @@ const routes: Routes = [
     SignupComponent,
     UserPageComponent,
     ConnectionChooseComponent,
+    ConnectionListWalkerComponent
   ],
   imports: [
     RouterModule.forRoot(routes),
