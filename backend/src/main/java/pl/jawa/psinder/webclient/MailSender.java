@@ -12,7 +12,7 @@ public class MailSender{
     @Autowired
     private JavaMailSender emailSender;
 
-    public void sendVerificationMessage(String login, String fName, String lName, Long regon, String address){
+    public void sendVerificationMessage(String login, String fName, String lName, Long regon, String address, long id){
         StringBuilder messageText = new StringBuilder("Data for verification:\n\n");
         messageText.append("User: ").append(fName).append(" ").append(lName).append(" (").append(login).append(")\n");
         int chceckNum = 0, d = 100000000;
@@ -25,7 +25,7 @@ public class MailSender{
         messageText.append("Regon number: ").append(regon).append(", check number: ").append(chceckNum%11).append("\n");
         messageText.append("Address: ").append(address).append("\n\n");
         messageText.append("To validate the ").append(login).append(" user verification, please follow the link below: \n\n");
-        messageText.append("https://localhost:8080/users/1/verified\n\n");
+        messageText.append("https://localhost:8080/users/").append(id).append("/verified\n\n");
 
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom("psinderva@outlook.com");

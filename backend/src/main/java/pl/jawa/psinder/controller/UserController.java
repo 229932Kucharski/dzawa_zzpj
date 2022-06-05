@@ -101,7 +101,7 @@ public class UserController {
         userService.deleteUser(id);
         return ResponseEntity.ok("User with id " + id + " is removed.");
     }
-
+    //get data to verify and sent verification mail
     @PostMapping("/{id}/verification")
     public ResponseEntity<String>  sendToVerify (@RequestBody VerificationDto verificationDto, @PathVariable long id) {
         User user = userService.getUserById(id).orElseThrow(() -> new ResourceAccessException("User not found on :: "+ id));
@@ -111,10 +111,18 @@ public class UserController {
                 user.getFirstName(),
                 user.getLastName(),
                 verificationDto.getRegon(),
-                verificationDto.getAddress()
+                verificationDto.getAddress(), id
         );
 
         return ResponseEntity.ok("The application has been sent for verification");
+    }
+    //accept verification
+    @PostMapping("/{id}/verified")
+    public ResponseEntity<String> validateVerify (@PathVariable long id) {
+        User user = userService.getUserById(id).orElseThrow(() -> new ResourceAccessException("User not found on :: "+ id));
+        user.setVerified(true);
+        final User updatedUser = userService.updateUser(user);
+        return ResponseEntity.ok(user.getUsername() + " user has been verified");
     }
 
 }
