@@ -1,6 +1,9 @@
 package pl.jawa.psinder.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -9,6 +12,8 @@ import javax.persistence.*;
 @Entity
 @Table(name = "chat")
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Chat {
 
     @Id
