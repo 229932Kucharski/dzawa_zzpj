@@ -38,9 +38,20 @@ public class ConnectionController {
         return connectionRepository.findByOwnerId(id);
     }
 
+    @GetMapping(value = "", params = {"ownerid", "keyword"})
+    public List<Connection> getConnectionsByOwnerIdWithKeyWord(@RequestParam("ownerid") int id, @RequestParam("keyword") String keyword) {
+        System.out.print(keyword.toLowerCase());
+        return connectionRepository.findByOwnerIdWithKeyWord(id, keyword.toLowerCase());
+    }
+
     @GetMapping(value = "", params = "walkerid")
     public List<Connection> getConnectionsByWalkerId(@RequestParam("walkerid") int id) {
         return connectionRepository.findByWalkerId(id);
+    }
+
+    @GetMapping(value = "", params = {"walkerid", "keyword"})
+    public List<Connection> getConnectionsByWalkerIdWithKeyWord(@RequestParam("walkerid") int id, @RequestParam("keyword") String keyword) {
+        return connectionRepository.findByWalkerIdWithKeyWord(id, keyword);
     }
 
     @GetMapping(value = "", params = {"ownerid", "status"})
