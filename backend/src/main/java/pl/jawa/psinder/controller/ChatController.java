@@ -1,6 +1,8 @@
 package pl.jawa.psinder.controller;
 
 
+import org.hibernate.service.spi.InjectService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -78,19 +80,9 @@ public class ChatController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<Chat> createMessage(ChatDto chatDto) {
+    public ResponseEntity<Chat> createMessage(@RequestBody ChatDto chatDto) {
         final Chat chat = chatService.addChat(chatMapper.toDomailModel(chatDto));
         return ResponseEntity.ok(chat);
     }
 
-//    @PatchMapping(value = "",
-//            consumes = MediaType.APPLICATION_JSON_VALUE,
-//            produces = MediaType.APPLICATION_JSON_VALUE)
-//    public ResponseEntity<List<Chat>> saveChat(List<ChatDto> chatDtos) {
-//
-//        for(ChatDto chatDto: chatDtos) {
-//
-//        }
-//        return ResponseEntity.ok()
-//    }
 }

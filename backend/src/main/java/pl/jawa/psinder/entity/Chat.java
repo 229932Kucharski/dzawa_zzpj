@@ -1,5 +1,6 @@
 package pl.jawa.psinder.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,6 +25,7 @@ public class Chat {
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "connection_id")
+    @JsonIgnore
     private Connection connection;
 
     @ManyToOne
