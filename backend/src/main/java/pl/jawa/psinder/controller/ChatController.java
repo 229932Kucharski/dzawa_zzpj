@@ -74,21 +74,19 @@ public class ChatController {
     }
 
     @PostMapping(
-            value = "",
-            params = "id",
+            value = "/create",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<Chat> createCMessage(@RequestParam("id") String id, ChatDto chatDto) {
-        final Chat chat = chatService.addChat(chatMapper.toDomailModel(chatDto, Long.parseLong(id)));
+    public ResponseEntity<Chat> createMessage(ChatDto chatDto) {
+        final Chat chat = chatService.addChat(chatMapper.toDomailModel(chatDto));
         return ResponseEntity.ok(chat);
     }
 
 //    @PatchMapping(value = "",
-//            params = "id",
 //            consumes = MediaType.APPLICATION_JSON_VALUE,
 //            produces = MediaType.APPLICATION_JSON_VALUE)
-//    public ResponseEntity<List<Chat>> saveChat(@RequestParam("id") String id, List<ChatDto> chatDtos) {
+//    public ResponseEntity<List<Chat>> saveChat(List<ChatDto> chatDtos) {
 //
 //        for(ChatDto chatDto: chatDtos) {
 //

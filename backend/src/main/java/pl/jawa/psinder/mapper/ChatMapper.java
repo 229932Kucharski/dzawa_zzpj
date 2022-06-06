@@ -26,10 +26,10 @@ public class ChatMapper {
         );
     }
 
-    public Chat toDomailModel(ChatDto source, long id) {
+    public Chat toDomailModel(ChatDto source) {
         return new Chat(
                 source.getId(),
-                connectionRepository.findById(id).get(),
+                connectionRepository.findById(source.getConn_Id()).get(),
                 userService.getUserById(source.getUser_Id()).get(),
                 source.getText()
         );

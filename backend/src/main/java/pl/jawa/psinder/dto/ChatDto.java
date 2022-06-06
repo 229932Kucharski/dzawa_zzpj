@@ -1,6 +1,7 @@
 package pl.jawa.psinder.dto;
 
 
+import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -9,6 +10,10 @@ import lombok.Data;
 public class ChatDto {
 
     private long id;
+
+    private long conn_Id;
+
     private long user_Id;
+
     private String text;
 }
