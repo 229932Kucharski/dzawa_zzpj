@@ -1,10 +1,7 @@
 package pl.jawa.psinder.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -26,6 +23,7 @@ public class Chat {
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "connection_id")
     @JsonIgnore
+    @ToString.Exclude
     private Connection connection;
 
     @ManyToOne

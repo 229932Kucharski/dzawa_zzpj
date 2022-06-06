@@ -41,6 +41,7 @@ public class Pet {
     private String description;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "pet")
+    @ToString.Exclude
     private List<PetAvailability> availabilities;
 
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "pet")

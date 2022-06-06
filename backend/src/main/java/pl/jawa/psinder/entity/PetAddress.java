@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import pl.jawa.psinder.enums.Days;
 
 import javax.persistence.*;
@@ -23,6 +24,7 @@ public class PetAddress {
     @OneToOne
     @JoinColumn(name = "pet_id")
     @JsonIgnore
+    @ToString.Exclude
     private Pet pet;
 
     @Column(name = "city")
