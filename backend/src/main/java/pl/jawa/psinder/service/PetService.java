@@ -71,7 +71,7 @@ public class PetService {
                     }
                 }).collect(Collectors.toList());
             } else {
-                result = result.stream().filter(pet -> pet.getAddress().getCity().toLowerCase(Locale.ROOT).equals(city.toLowerCase(Locale.ROOT))).toList();
+                result = result.stream().filter(pet -> pet.getAddress().getCity().toLowerCase(Locale.ROOT).contains(city.toLowerCase(Locale.ROOT))).toList();
             }
         }
         return result;

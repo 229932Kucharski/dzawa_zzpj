@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 import pl.jawa.psinder.dto.PetDto;
+import pl.jawa.psinder.dto.UserDto;
 import pl.jawa.psinder.entity.Pet;
 import pl.jawa.psinder.entity.PetAddress;
 import pl.jawa.psinder.entity.User;
@@ -86,8 +87,9 @@ public class PetController {
     //get user info from pet id
     //CHANE TO userDto
     @GetMapping("/pets/{id}/owner")
-    public User getPetParentById(@PathVariable long id) {
-        return petService.getOwner(id);
+    public UserDto getPetParentById(@PathVariable long id) {
+        User user = petService.getOwner(id);
+        return new UserDto(user.getId(), user.getUsername(), user.getFirstName(), user.getLastName(), user.getEmail());
     }
 
 }

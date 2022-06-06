@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs';
+import { Connection } from 'src/app/common/connection';
 import { Pet } from 'src/app/common/pet';
+import { User } from 'src/app/common/user';
+import { UserData } from 'src/app/common/userData';
 import { AuthService } from 'src/app/services/auth.service';
 import { ConnectionService } from 'src/app/services/connection.service';
 import { PetService } from 'src/app/services/pet.service';
@@ -31,24 +34,28 @@ export class PetListComponent implements OnInit {
     private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.readUserConnections();
-    this.route.paramMap.subscribe(() => {
-      this.listPets();
-    })
+    this.listPets();
   }
 
   listPets() {
-    this.petService.getPets().subscribe(data => {
-      data.forEach(pet => {
-        if (!this.petExists(pet)) {
-          this.pets.push(pet);
+    const userId = sessionStorage.getItem('user_id')!;
+    this.conService.getConnectionsForWalker(userId, "").subscribe(data => {
+      data.forEach(conn => {
+        this.petInConnections.push(conn.pet);
+      });
+      this.petService.getPets().subscribe(data => {
+        data.forEach(pet => {
+          if (!this.petExists(pet)) {
+            this.pets.push(pet);
+          }
+        })
+        if (this.pets.length > 0) {
+          this.currentIndex = 0;
+          this.currentPet = this.pets[this.currentIndex];
         }
-      })
-      if (this.pets.length > 0) {
-        this.currentIndex = 0;
-        this.currentPet = this.pets[this.currentIndex];
-      }
-    });
+      });
+    }
+    ) 
   }
 
   private petExists(pet: Pet) {
@@ -58,13 +65,7 @@ export class PetListComponent implements OnInit {
   }
 
   readUserConnections() {
-    const userId = sessionStorage.getItem('user_id')!;
-    this.conService.getConnectionsForWalker(userId).subscribe(data => {
-      data.forEach(conn => {
-        this.petInConnections.push(conn.pet);
-      });
-    }
-    )
+    
   }
 
   search() {
@@ -78,8 +79,14 @@ export class PetListComponent implements OnInit {
     if (this.largeSize) {
       sizes.push("big")
     }
+    let tempPets: Pet[] = [];
     this.petService.getPetsFiltered(this.race, sizes, this.city, this.street, this.distance).subscribe(data => {
-      this.pets = data
+      data.forEach(pet => {
+        if (!this.petExists(pet)) {
+          tempPets.push(pet);
+        }
+      })
+      this.pets = tempPets;
       if (this.pets.length > 0) {
         this.currentIndex = 0;
         this.currentPet = this.pets[this.currentIndex];
@@ -90,7 +97,33 @@ export class PetListComponent implements OnInit {
   }
 
   add() {
-    console.log("adding conn");
+    const userId = sessionStorage.getItem('user_id')!;
+    if (this.currentPet == undefined) {
+      return
+    }
+    let connection = new Connection();
+    let owner = new UserData();
+    let walker = new UserData();
+    connection.walker = walker
+    connection.pet = this.currentPet;
+    connection.status = 'waiting'
+    walker.id = Number(userId);
+    this.petService.getPetOwner(this.currentPet.id).subscribe(data => {
+      connection.owner = data
+      this.conService.saveConnection(connection).subscribe({
+        next: response => {
+          alert("Dodano psa. Sprawdź swoje połączenia by sprawdzić jego status.");
+          this.petInConnections.push(this.currentPet!);
+          this.remove();
+        }, 
+        error: err => {
+          alert("Wystąpił błąd. Nie udało się dodać połączenia");
+        }
+      })
+    })
+  }
+
+  skip() {
     this.showNext();
   }
 

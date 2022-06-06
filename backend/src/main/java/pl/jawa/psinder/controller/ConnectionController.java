@@ -86,11 +86,11 @@ public class ConnectionController {
         }
     }
 
+    @CrossOrigin
     @DeleteMapping(path = "delete", params = "id")
     public ResponseEntity<String> deleteById(@RequestParam("id") long id) {
         try {
             connectionRepository.deleteById(id);
-
             return new ResponseEntity<>("Connection deleted", HttpStatus.OK);
         } catch (Exception ex) {
             System.out.print(ex.getMessage());

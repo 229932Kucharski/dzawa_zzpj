@@ -64,6 +64,7 @@
                     class="btn btn-outline-danger btn-sm mb-5"
                     data-bs-toggle="modal"
                     data-bs-target="#exampleModal"
+                    (click)="deleteEvent(con)"
                   >
                     Usuń
                   </button>
@@ -120,7 +121,14 @@
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
           Anuluj
         </button>
-        <button type="button" class="btn btn-danger">Usuń</button>
+        <button
+          type="button"
+          class="btn btn-danger"
+          data-bs-dismiss="modal"
+          (click)="removeConnection()"
+        >
+          Usuń
+        </button>
       </div>
     </div>
   </div>

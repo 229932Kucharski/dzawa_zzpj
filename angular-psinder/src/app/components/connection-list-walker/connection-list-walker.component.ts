@@ -12,6 +12,7 @@ import { ConnectionService } from 'src/app/services/connection.service';
 export class ConnectionListWalkerComponent implements OnInit {
 
   connections: Connection[] = [];
+  connectionToDelete: Connection | undefined;
 
   searchMode!: boolean;
 
@@ -35,38 +36,37 @@ export class ConnectionListWalkerComponent implements OnInit {
   handleSearchConnections() {
     const keyword: string = this.route.snapshot.paramMap.get('keyword')!.toLowerCase();
     let userId = sessionStorage.getItem("user_id");
-    this.conService.getConnectionsForWalker(userId!).pipe(map(cons => {
-      return cons.filter(con => {
-        if (con.pet.name.toLowerCase().includes(keyword)) {
-          return true;
-        } else if (con.pet.race.toLowerCase().includes(keyword)){
-          return true;
-        } else if (con.pet.address.city.toLowerCase().includes(keyword)){
-          return true;
-        } else if (con.pet.address.street.toLowerCase().includes(keyword)){
-          return true;
-        }else {
-          return false;
-        }
-      })
-    })).subscribe(res => this.connections = res);
+    this.conService.getConnectionsForWalker(userId!, keyword).subscribe(res => this.connections = res);
   }
 
   handleListConnections() {
     let userId = sessionStorage.getItem("user_id");
-    this.conService.getConnectionsForWalker(userId!).subscribe(res => this.connections = res);
+    this.conService.getConnectionsForWalker(userId!, "").subscribe(res => this.connections = res);
   }
 
   connectionLink(con: Connection) {
+    let conId = con.id.toString();
     if (con.status == 'accepted') {
-      return "/connections-walker";
+      return "/connection-walker/" + conId;
     } else {
       return "/connections-walker"
     }
   }
 
+  deleteEvent(conn: Connection) {
+    this.connectionToDelete = conn;
+  }
+
   removeConnection() {
-    console.log("USUWAM");
+    this.conService.deleteConnection(this.connectionToDelete?.id.toString()!).subscribe({
+      next: response => {
+        alert("Połączenie zostało usunięte");
+        this.ngOnInit();
+      }, 
+      error: err => {
+        alert("Wystąpił błąd. Nie udało się usunąć połączenia");
+      }
+    })
   }
 
   doSearch(value: string) {
