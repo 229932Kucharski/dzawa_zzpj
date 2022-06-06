@@ -31,4 +31,8 @@ public class ChatService {
         return chatRepository.save(chat);
     }
 
+    public void deleteChat(long id) {
+        chatRepository.deleteById(id);
+    }
+
 }

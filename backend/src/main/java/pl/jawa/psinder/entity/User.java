@@ -33,5 +33,11 @@ public class User {
     @Column(name = "email")
     private String email;
 
-
+    public User(String firstName, String lastName, String username, String password, String email) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.username = username;
+        this.password = password;
+        this.email = email;
+    }
 }
