@@ -1,6 +1,7 @@
 package pl.jawa.psinder.entity;
 
 import lombok.Data;
+import lombok.ToString;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -19,6 +20,7 @@ public class Chat {
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "connection_id")
+    @ToString.Exclude
     private Connection connection;
 
     @ManyToOne
