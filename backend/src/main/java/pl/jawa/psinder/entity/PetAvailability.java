@@ -2,6 +2,7 @@ package pl.jawa.psinder.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import lombok.ToString;
 import pl.jawa.psinder.enums.Days;
 
 import javax.persistence.*;
@@ -19,6 +20,7 @@ public class PetAvailability {
     @ManyToOne()
     @JoinColumn(name = "pet_id")
     @JsonIgnore
+    @ToString.Exclude
     private Pet pet;
 
     @Column(name = "day", columnDefinition = "ENUM('pn', 'wt', 'sr', 'cz', 'pt', 'so', 'nd')")
