@@ -35,7 +35,7 @@
     <div class="row justify-content-md-center">
       <div *ngFor="let con of connections" class="col-md-4">
         <a
-          routerLink="/connection-owner/{{ con.id }}"
+          [routerLink]="connectionLink(con)"
           class="connection-link"
           *ngIf="con.status != 'canceled'"
         >
@@ -77,10 +77,11 @@
                     type="button"
                     class="btn btn-outline-danger btn-sm mb-5"
                     data-bs-toggle="modal"
-                    data-bs-target="#exampleModal"
+                    data-bs-target="#deleteModal"
                     (click)="buttonEvent(con)"
+                    *ngIf="con.status == 'waiting'"
                   >
-                    Usuń
+                    Anuluj
                   </button>
                   <p class="card-text staus-info">
                     <small class="state-waiting" *ngIf="con.status == 'waiting'"
@@ -104,7 +105,7 @@
 <!-- Modal -->
 <div
   class="modal fade"
-  id="exampleModal"
+  id="deleteModal"
   tabindex="-1"
   aria-labelledby="exampleModalLabel"
   aria-hidden="true"
@@ -124,7 +125,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-          Anuluj
+          Nie
         </button>
         <button
           type="button"
@@ -132,7 +133,7 @@
           data-bs-dismiss="modal"
           (click)="removeConnection()"
         >
-          Usuń
+          Usuń połączenie
         </button>
       </div>
     </div>

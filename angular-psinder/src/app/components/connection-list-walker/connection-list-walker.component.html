@@ -65,6 +65,7 @@
                     data-bs-toggle="modal"
                     data-bs-target="#exampleModal"
                     (click)="deleteEvent(con)"
+                    *ngIf="con.status != 'accepted'"
                   >
                     Usuń
                   </button>

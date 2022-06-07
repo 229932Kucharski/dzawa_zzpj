@@ -26,6 +26,10 @@ export class ConnectionService {
     return this.httpClient.put(`${this.connUrl}/status-update?connectionid=${connId}&status=accepted`, null);
   }
 
+  cancelConnection(connId: string) {
+    return this.httpClient.put(`${this.connUrl}/status-update?connectionid=${connId}&status=canceled`, null);
+  }
+
   getConnectionsForOwner(userId: string, keyword: string): Observable<Connection[]> {
     if (keyword == "") {
       return this.httpClient.get<Connection[]>(`${this.connUrl}?ownerid=${userId}`);

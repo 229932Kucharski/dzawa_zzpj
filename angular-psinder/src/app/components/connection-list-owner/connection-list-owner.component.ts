@@ -59,6 +59,18 @@ export class ConnectionListOwnerComponent implements OnInit {
     })
   }
 
+  cancelConnection() {
+    this.conService.acceptConnection(this.choosenConnection?.id.toString()!).subscribe({
+      next: response => {
+        alert("Połączenie zostało anulowane");
+        this.ngOnInit();
+      }, 
+      error: err => {
+        alert("Wystąpił błąd. Nie udało się anulować połączenia");
+      }
+    })
+  }
+
   removeConnection() {
     this.conService.deleteConnection(this.choosenConnection?.id.toString()!).subscribe({
       next: response => {
@@ -69,6 +81,15 @@ export class ConnectionListOwnerComponent implements OnInit {
         alert("Wystąpił błąd. Nie udało się usunąć połączenia");
       }
     })
+  }
+
+  connectionLink(con: Connection) {
+    let conId = con.id.toString();
+    if (con.status == 'accepted') {
+      return "/connection-owner/" + conId;
+    } else {
+      return "/connections-owner"
+    }
   }
   
   doSearch(value: string) {
