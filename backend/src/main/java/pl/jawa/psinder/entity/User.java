@@ -11,15 +11,6 @@ import javax.persistence.*;
 @NoArgsConstructor
 public class User {
 
-    public User(String firstName, String lastName, String username, String password, String email) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.username = username;
-        this.password = password;
-        this.email = email;
-        this.verified = false;
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -49,6 +40,7 @@ public class User {
         this.username = username;
         this.password = password;
         this.email = email;
+        this.verified = false;
     }
 
 }

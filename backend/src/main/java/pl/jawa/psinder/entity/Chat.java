@@ -30,7 +30,6 @@ public class Chat {
     @JoinColumn(name = "connection_id")
     @ToString.Exclude
     @JsonIgnore
-    @ToString.Exclude
     private Connection connection;
 
     @ManyToOne
