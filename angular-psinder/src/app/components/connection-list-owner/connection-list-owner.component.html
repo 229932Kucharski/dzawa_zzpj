@@ -34,49 +34,58 @@
     </div>
     <div class="row justify-content-md-center">
       <div *ngFor="let con of connections" class="col-md-4">
-        <a [routerLink]="connectionLink(con)" class="connection-link">
+        <a
+          [routerLink]="connectionLink(con)"
+          class="connection-link"
+          *ngIf="con.status != 'canceled'"
+        >
           <div class="card connection-card shadow" style="max-width: 440px">
             <div class="row g-0">
               <div class="col-md-6">
                 <img
-                  src="assets/img/dogs/undefined.jpg"
+                  src="assets/img/default_avatar.png"
                   class="img-fluid rounded-start"
                   alt="..."
                 />
               </div>
               <div class="col-md-6">
                 <div class="card-body">
-                  <h5 class="card-title">{{ con.pet.name }}</h5>
+                  <h5 class="card-title">{{ con.walker.username }}</h5>
                   <p class="card-text">
-                    <small class="text-muted">Rasa:</small>
-                    {{ con.pet.race }}
+                    <small class="text-muted">Imię:</small>
+                    {{ con.walker.firstName }}
                   </p>
                   <p class="card-text">
-                    <small class="text-muted">Rozmiar:</small>
-                    {{ con.pet.size }}
+                    <small class="text-muted">Nazwisko:</small>
+                    {{ con.walker.lastName }}
                   </p>
                   <p class="card-text">
-                    <small class="text-muted">Lokalizacja:</small>
-                    {{ con.pet.address.city }}, {{ con.pet.address.street }}
+                    <small class="text-muted">Połączenie z :</small>
+                    {{ con.pet.name }}
                   </p>
+                  <button
+                    type="button"
+                    class="btn btn-outline-success btn-sm mb-5 me-1"
+                    data-bs-toggle="modal"
+                    data-bs-target="#addModal"
+                    (click)="buttonEvent(con)"
+                    *ngIf="con.status == 'waiting'"
+                  >
+                    Dodaj
+                  </button>
                   <button
                     type="button"
                     class="btn btn-outline-danger btn-sm mb-5"
                     data-bs-toggle="modal"
-                    data-bs-target="#exampleModal"
-                    (click)="deleteEvent(con)"
-                    *ngIf="con.status != 'accepted'"
+                    data-bs-target="#deleteModal"
+                    (click)="buttonEvent(con)"
+                    *ngIf="con.status == 'waiting'"
                   >
-                    Usuń
+                    Anuluj
                   </button>
                   <p class="card-text staus-info">
                     <small class="state-waiting" *ngIf="con.status == 'waiting'"
                       >Status: oczekujący</small
-                    >
-                    <small
-                      class="state-canceled"
-                      *ngIf="con.status == 'canceled'"
-                      >Status: anulowane</small
                     >
                     <small
                       class="state-accepted"
@@ -96,7 +105,7 @@
 <!-- Modal -->
 <div
   class="modal fade"
-  id="exampleModal"
+  id="deleteModal"
   tabindex="-1"
   aria-labelledby="exampleModalLabel"
   aria-hidden="true"
@@ -114,9 +123,46 @@
           aria-label="Close"
         ></button>
       </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Nie
+        </button>
+        <button
+          type="button"
+          class="btn btn-danger"
+          data-bs-dismiss="modal"
+          (click)="cancelConnection()"
+        >
+          Usuń połączenie
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="addModal"
+  tabindex="-1"
+  aria-labelledby="addModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">
+          Czy na pewno chcesz zaakceptować to połączenie?
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
       <div class="modal-body">
-        Po usunięciu połączenia, pies ponownie będzie pojawiał się[] w zakładce
-        Przeglądaj Psy
+        Po zaakceptowaniu, zyskacie dostęp do bezpośredniego czatu.
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
@@ -124,11 +170,11 @@
         </button>
         <button
           type="button"
-          class="btn btn-danger"
+          class="btn btn-success"
           data-bs-dismiss="modal"
-          (click)="removeConnection()"
+          (click)="acceptConnection()"
         >
-          Usuń
+          Dodaj
         </button>
       </div>
     </div>

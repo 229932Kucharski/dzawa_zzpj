@@ -29,3 +29,6 @@ spring.datasource.url=jdbc:mysql://${DB_HOSTNAME}:${DB_PORT}/${DB_NAME}
 spring.datasource.username=${PSINDER_USER}
 spring.datasource.password=${PSINDER_PASS}
 ```
+
+## Demo
+https://psinder-ftims.herokuapp.com/home
