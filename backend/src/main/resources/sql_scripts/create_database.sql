@@ -60,6 +60,7 @@ CREATE TABLE psinder.chat (
 	connection_id INT NOT NULL,
     user_id INT NOT NULL,
     text VARCHAR(255),
+    date_created DATETIME,
     PRIMARY KEY (id),
     FOREIGN KEY (connection_id) REFERENCES psinder.connection(id),
 	FOREIGN KEY (user_id) REFERENCES psinder.user(id)

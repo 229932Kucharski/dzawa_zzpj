@@ -33,4 +33,12 @@ public class User {
 
     @Column(name = "verified")
     private boolean verified;
+
+    public User(String firstName, String lastName, String username, String password, String email) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.username = username;
+        this.password = password;
+        this.email = email;
+    }
 }
