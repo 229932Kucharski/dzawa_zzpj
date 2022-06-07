@@ -1,9 +1,9 @@
 package pl.jawa.psinder.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 import pl.jawa.psinder.dto.PetDto;
+import pl.jawa.psinder.dto.UserDto;
 import pl.jawa.psinder.entity.Pet;
 import pl.jawa.psinder.entity.PetAddress;
 import pl.jawa.psinder.entity.User;
@@ -32,17 +32,10 @@ public class PetController {
 
     //create pet
     @PostMapping("/pets")
-    public Pet createPet(@RequestBody PetDto petDto) {
-        return petService.addPet(new Pet(
-                null,
-                petService.getOwner(1), //needs to change
-                petDto.getName(),
-                petDto.getRace(),
-                petDto.getSize(),
-                petDto.getDescription(),
-                null, //needs to change
-                petService.getPet(1).get().getAddress() //needs to change
-        ));
+    public Pet createPet(@RequestBody Pet pet) {
+        PetAddress address = pet.getAddress();
+        address.setPet(pet);
+        return petService.addPet(pet);
     }
 
     //update pet
@@ -61,6 +54,7 @@ public class PetController {
     }
 
     //delete pet with given id
+    @CrossOrigin
     @DeleteMapping("/pets/{id}")
     public void deletePet(@PathVariable long id) {
         petService.deletePet(id);
@@ -68,11 +62,11 @@ public class PetController {
 
     //get pet with filters
     @GetMapping("/pets/filtered")
-    public List<Pet> getFilteredPets(@Param("race") String race,
-                                     @Param("size") String size,
-                                     @Param("city") String city,
-                                     @Param("street") String street,
-                                     @Param("distance") double distance) {
+    public List<Pet> getFilteredPets(@RequestParam(value = "race", required = false) String race,
+                                     @RequestParam(value = "size", required = false) List<String> size,
+                                     @RequestParam(value = "city", required = false) String city,
+                                     @RequestParam(value = "street", required = false) String street,
+                                     @RequestParam(value = "distance", required = false) Double distance) {
         return petService.getFilteredPets(race, size, city, street, distance);
     }
 
@@ -86,8 +80,9 @@ public class PetController {
     //get user info from pet id
     //CHANE TO userDto
     @GetMapping("/pets/{id}/owner")
-    public User getPetParentById(@PathVariable long id) {
-        return petService.getOwner(id);
+    public UserDto getPetParentById(@PathVariable long id) {
+        User user = petService.getOwner(id);
+        return new UserDto(user.getId(), user.getUsername(), user.getFirstName(), user.getLastName(), user.getEmail());
     }
 
 }

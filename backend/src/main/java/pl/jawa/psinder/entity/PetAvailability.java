@@ -17,7 +17,7 @@ public class PetAvailability {
     @Column(name = "id")
     private long id;
 
-    @ManyToOne
+    @ManyToOne()
     @JoinColumn(name = "pet_id")
     @JsonIgnore
     @ToString.Exclude

@@ -15,16 +15,25 @@ import { SignupComponent } from './components/signup/signup.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { UserPageComponent } from './components/user-page/user-page.component';
 import { ConnectionChooseComponent } from './components/connection-choose/connection-choose.component';
+import { ConnectionListWalkerComponent } from './components/connection-list-walker/connection-list-walker.component';
+import { WelcomePageComponent } from './components/welcome-page/welcome-page.component';
+import { ConnectionWalkerComponent } from './components/connection-walker/connection-walker.component';
+import { PetAddComponent } from './components/pet-add/pet-add.component';
 
 const routes: Routes = [
+  {path: 'add', component: PetAddComponent, canActivate:[AuthGuardService]},
+  {path: 'home', component: WelcomePageComponent},
+  {path: 'connections-walker/search/:keyword', component: ConnectionListWalkerComponent, canActivate:[AuthGuardService]},
+  {path: 'connections-walker', component: ConnectionListWalkerComponent, canActivate:[AuthGuardService]},
+  {path: 'connection-walker/:id', component: ConnectionWalkerComponent, canActivate:[AuthGuardService]},
   {path: 'choose-connection', component: ConnectionChooseComponent, canActivate:[AuthGuardService]},
   {path: 'profile', component: UserPageComponent, canActivate:[AuthGuardService]},
   {path: 'signup', component: SignupComponent},
   {path: 'login', component: LoginComponent},
-  {path: 'logout', component: LogoutComponent, canActivate:[AuthGuardService]},
+  {path: 'logout', component: LogoutComponent},
   {path: 'pets', component: PetListComponent, canActivate:[AuthGuardService]},
-  {path: '', redirectTo: '/', pathMatch: 'full'},
-  {path: '**', redirectTo: '/', pathMatch: 'full'},
+  {path: '', redirectTo: '/home', pathMatch: 'full'},
+  {path: '**', redirectTo: '/home', pathMatch: 'full'},
 ];
 
 @NgModule({
@@ -36,6 +45,10 @@ const routes: Routes = [
     SignupComponent,
     UserPageComponent,
     ConnectionChooseComponent,
+    ConnectionListWalkerComponent,
+    WelcomePageComponent,
+    ConnectionWalkerComponent,
+    PetAddComponent
   ],
   imports: [
     RouterModule.forRoot(routes),

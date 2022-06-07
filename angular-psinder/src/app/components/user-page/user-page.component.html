@@ -1,17 +1,117 @@
-<div class="card w-50 mx-auto mt-5">
-  <h5 class="card-header text-center">{{ currentUser!.username }}</h5>
-  <div class="card-body">
-    <h5 class="card-title">Imię</h5>
-    <p class="card-text">
-      {{ currentUser!.firstName }}
-    </p>
-    <h5 class="card-title">Nazwisko</h5>
-    <p class="card-text">
-      {{ currentUser!.lastName }}
-    </p>
-    <h5 class="card-title">Email</h5>
-    <p class="card-text">
-      {{ currentUser!.email }}
-    </p>
+<div class="container">
+  <div class="row justify-content-md-center">
+    <div class="card mx-auto mt-5 col-lg-3">
+      <h5 class="card-header text-center">{{ currentUser?.username }}</h5>
+      <div class="card-body">
+        <h5 class="card-title">Imię</h5>
+        <p class="card-text">
+          {{ currentUser?.firstName }}
+        </p>
+        <h5 class="card-title">Nazwisko</h5>
+        <p class="card-text">
+          {{ currentUser?.lastName }}
+        </p>
+        <h5 class="card-title">Email</h5>
+        <p class="card-text">
+          {{ currentUser?.email }}
+        </p>
+      </div>
+    </div>
+    <div class="col">
+      <div class="row justify-content-md-center">
+        <div *ngFor="let pet of pets" class="col-md-6">
+          <div class="card connection-card shadow" style="max-width: 540px">
+            <div class="row g-0">
+              <div class="col-md-6">
+                <img
+                  src="assets/img/dogs/undefined.jpg"
+                  class="img-fluid rounded-start"
+                  alt="..."
+                />
+              </div>
+              <div class="col-md-6">
+                <div class="card-body">
+                  <h5 class="card-title">{{ pet.name }}</h5>
+                  <p class="card-text mb-1">
+                    <small class="text-muted">Rasa:</small>
+                    {{ pet.race }}
+                  </p>
+                  <p class="card-text mb-1">
+                    <small class="text-muted">Rozmiar:</small>
+                    {{ pet.size }}
+                  </p>
+                  <p class="card-text mb-1">
+                    <small class="text-muted">Lokalizacja:</small>
+                    {{ pet.address.city }}, {{ pet.address.street }}
+                  </p>
+                  <div class="d-flex flex-column bd-highlight">
+                    <div class="p-2 bd-highlight">
+                      <button
+                        type="button"
+                        class="btn btn-outline-danger btn-sm"
+                        data-bs-toggle="modal"
+                        data-bs-target="#exampleModal"
+                        (click)="choosePet(pet)"
+                      >
+                        Usuń psa
+                      </button>
+                    </div>
+                    <div class="p-2 bd-highlight">
+                      <button
+                        type="button"
+                        class="btn btn-outline-warning btn-sm"
+                        data-bs-toggle="modal"
+                        data-bs-target="#exampleModal"
+                        (click)="choosePet(pet)"
+                      >
+                        Zmodyfikuj
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row g-0 card-description">{{ pet.description }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">
+          Czy na pewno chcesz usunąć psa?
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Anuluj
+        </button>
+        <button
+          type="button"
+          class="btn btn-danger"
+          data-bs-dismiss="modal"
+          (click)="deletePet()"
+        >
+          Usuń
+        </button>
+      </div>
+    </div>
   </div>
 </div>
