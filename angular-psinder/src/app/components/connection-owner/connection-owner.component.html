@@ -9,8 +9,8 @@
       <div class="col-lg-3 col-md-4 col-sm-4">
         <div class="main-box clearfix">
           <h2>
-            {{ connection?.owner?.firstName }}
-            {{ connection?.owner?.lastName }}
+            {{ connection?.walker?.firstName }}
+            {{ connection?.walker?.lastName }}
           </h2>
           <img
             src="assets/img/default_avatar.png"
@@ -19,11 +19,14 @@
           />
           <div class="profile-label">
             <span class="label label-danger">
-              {{ connection?.owner?.email }}
+              {{ connection?.walker?.email }}
             </span>
           </div>
           <br />
           <div class="center-block text-center">
+            <button type="button" class="button-5 btn-sm mb-1">
+              Zobacz profil
+            </button>
             <button
               type="button"
               class="btn btn-danger btn-sm mb-5"
@@ -40,45 +43,8 @@
         <div class="main-box clearfix">
           <div class="profile-header">
             <h3>
-              <span>{{ connection?.pet?.name }}</span>
+              <span>Połączenie z {{ connection?.pet?.name }}</span>
             </h3>
-          </div>
-
-          <div class="row profile-user-info">
-            <div class="col-sm-8">
-              <div class="profile-user-details clearfix">
-                <div class="profile-user-details-label">Rasa</div>
-                <div class="profile-user-details-value">
-                  {{ connection?.pet?.race }}
-                </div>
-              </div>
-              <div class="profile-user-details clearfix">
-                <div class="profile-user-details-label">Wielkość</div>
-                <div class="profile-user-details-value">
-                  {{ connection?.pet?.size }}
-                </div>
-              </div>
-              <div class="profile-user-details clearfix">
-                <div class="profile-user-details-label">Address</div>
-                <div class="profile-user-details-value">
-                  {{ connection?.pet?.address?.city }},
-                  {{ connection?.pet?.address?.street }}
-                </div>
-              </div>
-              <div class="profile-user-details clearfix">
-                <div class="profile-user-details-label">Opis</div>
-                <div class="profile-user-details-value">
-                  {{ connection?.pet?.description }}
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-4 profile-social">
-              <img
-                src="assets/img/dogs/undefined.jpg"
-                alt="Domyślny awatar"
-                class="img-responsive img-thumbnail center-block"
-              />
-            </div>
           </div>
           <div class="conversation-new-message">
             <form>
@@ -120,7 +86,7 @@
                   <div class="conversation-item item-left clearfix">
                     <div class="conversation-user">
                       <img
-                        src="assets/img/dogs/undefined.jpg"
+                        src="assets/img/default_avatar.png"
                         class="img-responsive img-thumbnail img-chat"
                         alt=""
                         *ngIf="mess.username != connection.walker.username"
@@ -204,7 +170,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">
-          Czy na pewno chcesz usunąć psa?
+          Czy na pewno chcesz usunąć to połączenie?
         </h5>
         <button
           type="button"
@@ -223,7 +189,7 @@
           data-bs-dismiss="modal"
           (click)="deleteConnection()"
         >
-          Usuń
+          Usuń połączenie
         </button>
       </div>
     </div>
