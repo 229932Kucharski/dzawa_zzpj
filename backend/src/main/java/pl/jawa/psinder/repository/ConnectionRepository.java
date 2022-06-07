@@ -12,13 +12,13 @@ import java.util.List;
 public interface ConnectionRepository extends JpaRepository<Connection, Long> {
 
     @Query (value = "SELECT * FROM connection WHERE owner_id = :ownerId ORDER BY field(status, 'accepted', 'waiting', 'canceled')", nativeQuery = true)
-    List<Connection> findByOwnerId(@Param("ownerId") int ownerId);
+    List<Connection> findByOwnerId(@Param("ownerId") long ownerId);
 
     @Query (value = "SELECT * FROM connection WHERE walker_id = :walkerId ORDER BY field(status, 'accepted', 'waiting', 'canceled')", nativeQuery = true)
-    List<Connection> findByWalkerId(@Param("walkerId") int walkerId);
+    List<Connection> findByWalkerId(@Param("walkerId") long walkerId);
 
     @Query (value = "SELECT * FROM connection WHERE owner_id = :ownerId AND status = :status", nativeQuery = true)
-    List<Connection> findByStatus(@Param("ownerId") int ownerId, @Param("status") String status);
+    List<Connection> findByStatus(@Param("ownerId") long ownerId, @Param("status") String status);
 
     @Query (value = "SELECT connection.* " +
             "FROM connection " +
@@ -27,7 +27,7 @@ public interface ConnectionRepository extends JpaRepository<Connection, Long> {
             "WHERE walker_id = :walkerId AND " +
             "(lower(pet.name) LIKE CONCAT('%',:keyword,'%') OR lower(pet.race) LIKE CONCAT('%',:keyword,'%') OR lower(petaddress.city) LIKE CONCAT('%',:keyword,'%') OR lower(petaddress.street) LIKE CONCAT('%',:keyword,'%')) " +
             "ORDER BY field(status, 'accepted', 'waiting', 'canceled')", nativeQuery = true)
-    List<Connection> findByWalkerIdWithKeyWord(@Param("walkerId") int walkerId, @Param("keyword") String keyword);
+    List<Connection> findByWalkerIdWithKeyWord(@Param("walkerId") long walkerId, @Param("keyword") String keyword);
 
     @Query (value = "SELECT connection.* " +
             "FROM connection " +
@@ -37,5 +37,5 @@ public interface ConnectionRepository extends JpaRepository<Connection, Long> {
             "WHERE owner_id = :ownerId AND " +
             "(lower(pet.name) LIKE CONCAT('%',:keyword,'%') OR lower(pet.race) LIKE CONCAT('%',:keyword,'%') OR lower(petaddress.city) LIKE CONCAT('%',:keyword,'%') OR lower(petaddress.street) LIKE CONCAT('%',:keyword,'%') OR lower(user.firstname) LIKE CONCAT('%',:keyword,'%') OR lower(user.lastname) LIKE CONCAT('%',:keyword,'%') OR lower(user.username) LIKE CONCAT('%',:keyword,'%')) " +
             "ORDER BY field(status, 'accepted', 'waiting', 'canceled')", nativeQuery = true)
-    List<Connection> findByOwnerIdWithKeyWord(@Param("ownerId") int ownerId, @Param("keyword") String keyword);
+    List<Connection> findByOwnerIdWithKeyWord(@Param("ownerId") long ownerId, @Param("keyword") String keyword);
 }
