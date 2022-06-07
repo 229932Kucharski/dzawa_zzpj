@@ -1,11 +1,11 @@
 USE psinder;
 
-INSERT INTO user VALUES (1, 'Drzysztow', 'Kwużnik', 'Krzysiek', '$2a$10$Fn5ReBxSA7m5lsZEIQ/JyOmIKQYIm5iVUx3ZMYIspzOWSI88h7Noy', 'krzysiek.dwuznik@gmail.com');
-INSERT INTO user VALUES (2, 'Kojciech', 'Wowner', 'Nafai', '$2a$10$Fn5ReBxSA7m5lsZEIQ/JyOmIKQYIm5iVUx3ZMYIspzOWSI88h7Noy', 'wojciech.kowner@gmail.com');
-INSERT INTO user VALUES (3, 'Krzegorz', 'Gucharski', 'Gelo', '$2a$10$Fn5ReBxSA7m5lsZEIQ/JyOmIKQYIm5iVUx3ZMYIspzOWSI88h7Noy', 'grzegorz.kucharski@gmail.com');
-INSERT INTO user VALUES (4, 'Partek', 'Bietrzyba', 'Bartek', '$2a$10$Fn5ReBxSA7m5lsZEIQ/JyOmIKQYIm5iVUx3ZMYIspzOWSI88h7Noy', 'bartek.pietrzyba@gmail.com');
-INSERT INTO user VALUES (5, 'Paulina', 'Papiernik', 'Paulina', '$2a$10$Fn5ReBxSA7m5lsZEIQ/JyOmIKQYIm5iVUx3ZMYIspzOWSI88h7Noy', 'paulina.papiernik@gmail.com');
-INSERT INTO user VALUES (6, 'Sabriela', 'Gzkilondz', 'Gabrysia', '$2a$10$Fn5ReBxSA7m5lsZEIQ/JyOmIKQYIm5iVUx3ZMYIspzOWSI88h7Noy', 'gabriela.szkilondz@gmail.com');
+INSERT INTO user VALUES (1, 'Drzysztow', 'Kwużnik', 'Krzysiek', '$2a$10$Fn5ReBxSA7m5lsZEIQ/JyOmIKQYIm5iVUx3ZMYIspzOWSI88h7Noy', 'krzysiek.dwuznik@gmail.com', false);
+INSERT INTO user VALUES (2, 'Kojciech', 'Wowner', 'Nafai', '$2a$10$Fn5ReBxSA7m5lsZEIQ/JyOmIKQYIm5iVUx3ZMYIspzOWSI88h7Noy', 'wojciech.kowner@gmail.com', false);
+INSERT INTO user VALUES (3, 'Krzegorz', 'Gucharski', 'Gelo', '$2a$10$Fn5ReBxSA7m5lsZEIQ/JyOmIKQYIm5iVUx3ZMYIspzOWSI88h7Noy', 'grzegorz.kucharski@gmail.com', false);
+INSERT INTO user VALUES (4, 'Partek', 'Bietrzyba', 'Bartek', '$2a$10$Fn5ReBxSA7m5lsZEIQ/JyOmIKQYIm5iVUx3ZMYIspzOWSI88h7Noy', 'bartek.pietrzyba@gmail.com', false);
+INSERT INTO user VALUES (5, 'Paulina', 'Papiernik', 'Paulina', '$2a$10$Fn5ReBxSA7m5lsZEIQ/JyOmIKQYIm5iVUx3ZMYIspzOWSI88h7Noy', 'paulina.papiernik@gmail.com', false);
+INSERT INTO user VALUES (6, 'Sabriela', 'Gzkilondz', 'Gabrysia', '$2a$10$Fn5ReBxSA7m5lsZEIQ/JyOmIKQYIm5iVUx3ZMYIspzOWSI88h7Noy', 'gabriela.szkilondz@gmail.com', false);
 
 
 INSERT INTO pet VALUES (1, 1, 'Pimpek', 'Owczarek niemiecki', 'big', 'Fajny pies, bardzo fajny, miły, dzień dobry na klatce mówi');

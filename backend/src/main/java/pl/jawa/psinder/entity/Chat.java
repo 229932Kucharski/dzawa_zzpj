@@ -4,8 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
+import lombok.ToString;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -29,6 +29,7 @@ public class Chat {
     @JoinColumn(name = "connection_id")
     @ToString.Exclude
     @JsonIgnore
+    @ToString.Exclude
     private Connection connection;
 
     @ManyToOne

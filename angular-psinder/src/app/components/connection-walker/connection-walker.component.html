@@ -1,0 +1,229 @@
+<link
+  href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"
+  rel="stylesheet"
+/>
+
+<div class="">
+  <div class="container bootstrap snippets bootdeys">
+    <div class="row" id="user-profile">
+      <div class="col-lg-3 col-md-4 col-sm-4">
+        <div class="main-box clearfix">
+          <h2>
+            {{ connection?.owner?.firstName }}
+            {{ connection?.owner?.lastName }}
+          </h2>
+          <img
+            src="assets/img/default_avatar.png"
+            alt="Domyślny awatar"
+            class="img-responsive img-thumbnail center-block"
+          />
+          <div class="profile-label">
+            <span class="label label-danger">
+              {{ connection?.owner?.email }}
+            </span>
+          </div>
+          <br />
+          <div class="center-block text-center">
+            <button
+              type="button"
+              class="btn btn-danger btn-sm mb-5"
+              data-bs-toggle="modal"
+              data-bs-target="#exampleModal"
+            >
+              Usuń połączenie
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-9 col-md-8 col-sm-8">
+        <div class="main-box clearfix">
+          <div class="profile-header">
+            <h3>
+              <span>{{ connection?.pet?.name }}</span>
+            </h3>
+          </div>
+
+          <div class="row profile-user-info">
+            <div class="col-sm-8">
+              <div class="profile-user-details clearfix">
+                <div class="profile-user-details-label">Rasa</div>
+                <div class="profile-user-details-value">
+                  {{ connection?.pet?.race }}
+                </div>
+              </div>
+              <div class="profile-user-details clearfix">
+                <div class="profile-user-details-label">Wielkość</div>
+                <div class="profile-user-details-value">
+                  {{ connection?.pet?.size }}
+                </div>
+              </div>
+              <div class="profile-user-details clearfix">
+                <div class="profile-user-details-label">Address</div>
+                <div class="profile-user-details-value">
+                  {{ connection?.pet?.address?.city }},
+                  {{ connection?.pet?.address?.street }}
+                </div>
+              </div>
+              <div class="profile-user-details clearfix">
+                <div class="profile-user-details-label">Opis</div>
+                <div class="profile-user-details-value">
+                  {{ connection?.pet?.description }}
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-4 profile-social">
+              <img
+                src="assets/img/dogs/undefined.jpg"
+                alt="Domyślny awatar"
+                class="img-responsive img-thumbnail center-block"
+              />
+            </div>
+          </div>
+          <div class="conversation-new-message">
+            <form>
+              <div class="form-group">
+                <textarea
+                  class="form-control"
+                  rows="2"
+                  placeholder="Wpisz wiadomość..."
+                  [(ngModel)]="input"
+                  name="input"
+                ></textarea>
+              </div>
+
+              <div class="clearfix mt-1 mb-2">
+                <button
+                  type="submit"
+                  class="button-5 pull-left"
+                  (click)="refreshChat()"
+                >
+                  <i class="fa-solid fa-arrow-rotate-right"></i>
+                </button>
+                <button
+                  type="submit"
+                  class="button-5 pull-right"
+                  (click)="sendMessage()"
+                >
+                  Wyślij wiadomość
+                </button>
+              </div>
+            </form>
+          </div>
+          <div class="conversation-wrapper overflow-auto">
+            <div class="conversation-content">
+              <div
+                class="conversation-inner"
+                style="width: auto; height: 340px"
+              >
+                <div *ngFor="let mess of messages">
+                  <div class="conversation-item item-left clearfix">
+                    <div class="conversation-user">
+                      <img
+                        src="assets/img/dogs/undefined.jpg"
+                        class="img-responsive img-thumbnail img-chat"
+                        alt=""
+                        *ngIf="mess.user_Id != connection.walker.id"
+                      />
+                      <img
+                        src="assets/img/default_avatar.png"
+                        class="img-responsive img-thumbnail img-chat"
+                        alt=""
+                        *ngIf="mess.user_Id == connection.walker.id"
+                      />
+                    </div>
+                    <div class="conversation-body">
+                      <div
+                        class="name"
+                        *ngIf="mess.user_Id == connection.walker.id"
+                      >
+                        {{ connection.walker.username }}
+                      </div>
+                      <div
+                        class="name"
+                        *ngIf="mess.user_Id != connection.walker.id"
+                      >
+                        {{ connection.owner.username }}
+                      </div>
+                      <div class="time hidden-xs">TIME</div>
+                      <div class="text">
+                        {{ mess.text }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="slimScrollBar"
+                style="
+                  width: 7px;
+                  position: absolute;
+                  top: 0px;
+                  opacity: 0.4;
+                  display: block;
+                  border-radius: 7px;
+                  z-index: 99;
+                  right: 1px;
+                  background: rgb(0, 0, 0);
+                "
+              ></div>
+              <div
+                class="slimScrollRail"
+                style="
+                  width: 7px;
+                  height: 100%;
+                  position: absolute;
+                  top: 0px;
+                  display: none;
+                  border-radius: 7px;
+                  opacity: 0.2;
+                  z-index: 90;
+                  right: 1px;
+                  background: rgb(51, 51, 51);
+                "
+              ></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">
+          Czy na pewno chcesz usunąć psa?
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Anuluj
+        </button>
+        <button
+          type="button"
+          class="btn btn-danger"
+          data-bs-dismiss="modal"
+          (click)="deleteConnection()"
+        >
+          Usuń
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
