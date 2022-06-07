@@ -9,7 +9,8 @@
       <div class="col-lg-3 col-md-4 col-sm-4">
         <div class="main-box clearfix">
           <h2>
-            {{ connection.owner.firstName }} {{ connection.owner.lastName }}
+            {{ connection?.owner?.firstName }}
+            {{ connection?.owner?.lastName }}
           </h2>
           <img
             src="assets/img/default_avatar.png"
@@ -18,7 +19,7 @@
           />
           <div class="profile-label">
             <span class="label label-danger">
-              {{ connection.owner.email }}
+              {{ connection?.owner?.email }}
             </span>
           </div>
           <br />
@@ -39,7 +40,7 @@
         <div class="main-box clearfix">
           <div class="profile-header">
             <h3>
-              <span>{{ connection.pet.name }}</span>
+              <span>{{ connection?.pet?.name }}</span>
             </h3>
           </div>
 
@@ -48,26 +49,26 @@
               <div class="profile-user-details clearfix">
                 <div class="profile-user-details-label">Rasa</div>
                 <div class="profile-user-details-value">
-                  {{ connection.pet.race }}
+                  {{ connection?.pet?.race }}
                 </div>
               </div>
               <div class="profile-user-details clearfix">
                 <div class="profile-user-details-label">Wielkość</div>
                 <div class="profile-user-details-value">
-                  {{ connection.pet.size }}
+                  {{ connection?.pet?.size }}
                 </div>
               </div>
               <div class="profile-user-details clearfix">
                 <div class="profile-user-details-label">Address</div>
                 <div class="profile-user-details-value">
-                  {{ connection.pet.address.city }},
-                  {{ connection.pet.address.street }}
+                  {{ connection?.pet?.address?.city }},
+                  {{ connection?.pet?.address?.street }}
                 </div>
               </div>
               <div class="profile-user-details clearfix">
                 <div class="profile-user-details-label">Opis</div>
                 <div class="profile-user-details-value">
-                  {{ connection.pet.description }}
+                  {{ connection?.pet?.description }}
                 </div>
               </div>
             </div>
@@ -79,41 +80,76 @@
               />
             </div>
           </div>
+          <div class="conversation-new-message">
+            <form>
+              <div class="form-group">
+                <textarea
+                  class="form-control"
+                  rows="2"
+                  placeholder="Wpisz wiadomość..."
+                  [(ngModel)]="input"
+                  name="input"
+                ></textarea>
+              </div>
+
+              <div class="clearfix mt-1 mb-2">
+                <button
+                  type="submit"
+                  class="button-5 pull-left"
+                  (click)="refreshChat()"
+                >
+                  <i class="fa-solid fa-arrow-rotate-right"></i>
+                </button>
+                <button
+                  type="submit"
+                  class="button-5 pull-right"
+                  (click)="sendMessage()"
+                >
+                  Wyślij wiadomość
+                </button>
+              </div>
+            </form>
+          </div>
           <div class="conversation-wrapper overflow-auto">
             <div class="conversation-content">
               <div
                 class="conversation-inner"
                 style="width: auto; height: 340px"
               >
-                <div class="conversation-item item-left clearfix">
-                  <div class="conversation-user">
-                    <img
-                      src="assets/img/dogs/undefined.jpg"
-                      class="img-responsive img-thumbnail img-chat"
-                      alt=""
-                    />
-                  </div>
-                  <div class="conversation-body">
-                    <div class="name">{{ connection.owner.firstName }}</div>
-                    <div class="time hidden-xs">September 21, 2013 18:28</div>
-                    <div class="text">
-                      Cześć, jeżeli jesteś chętny to ciapek jest jutro dostępny
-                      między 12-14 :)
+                <div *ngFor="let mess of messages">
+                  <div class="conversation-item item-left clearfix">
+                    <div class="conversation-user">
+                      <img
+                        src="assets/img/dogs/undefined.jpg"
+                        class="img-responsive img-thumbnail img-chat"
+                        alt=""
+                        *ngIf="mess.user_Id != connection.walker.id"
+                      />
+                      <img
+                        src="assets/img/default_avatar.png"
+                        class="img-responsive img-thumbnail img-chat"
+                        alt=""
+                        *ngIf="mess.user_Id == connection.walker.id"
+                      />
                     </div>
-                  </div>
-                </div>
-                <div class="conversation-item item-right clearfix">
-                  <div class="conversation-user">
-                    <img
-                      src="assets/img/default_avatar.png"
-                      class="img-responsive img-thumbnail img-chat"
-                      alt=""
-                    />
-                  </div>
-                  <div class="conversation-body">
-                    <div class="name">Ty</div>
-                    <div class="time hidden-xs">September 21, 2013 12:45</div>
-                    <div class="text">Super, będę koło 12:20</div>
+                    <div class="conversation-body">
+                      <div
+                        class="name"
+                        *ngIf="mess.user_Id == connection.walker.id"
+                      >
+                        {{ connection.walker.username }}
+                      </div>
+                      <div
+                        class="name"
+                        *ngIf="mess.user_Id != connection.walker.id"
+                      >
+                        {{ connection.owner.username }}
+                      </div>
+                      <div class="time hidden-xs">TIME</div>
+                      <div class="text">
+                        {{ mess.text }}
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -147,23 +183,6 @@
                 "
               ></div>
             </div>
-          </div>
-          <div class="conversation-new-message">
-            <form>
-              <div class="form-group">
-                <textarea
-                  class="form-control"
-                  rows="2"
-                  placeholder="Wpisz wiadomość..."
-                ></textarea>
-              </div>
-
-              <div class="clearfix">
-                <button type="submit" class="button-5 pull-right">
-                  Wyślij wiadomość
-                </button>
-              </div>
-            </form>
           </div>
         </div>
       </div>
