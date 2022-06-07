@@ -30,7 +30,7 @@ public class User {
 
     @Column(name = "email")
     private String email;
-
+  
     @Column(name = "verified")
     private boolean verified;
 
@@ -41,4 +41,5 @@ public class User {
         this.password = password;
         this.email = email;
     }
+
 }
