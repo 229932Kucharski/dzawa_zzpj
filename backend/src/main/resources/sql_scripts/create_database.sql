@@ -9,6 +9,7 @@ CREATE TABLE psinder.user (
     username VARCHAR(69),
     password CHAR(69),
     email VARCHAR(320),
+    verified BOOLEAN,
     PRIMARY KEY (id)
     );
 

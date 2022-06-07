@@ -5,8 +5,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.ResourceAccessException;
 import pl.jawa.psinder.dto.UserDto;
+import pl.jawa.psinder.dto.VerificationDto;
 import pl.jawa.psinder.entity.User;
 import pl.jawa.psinder.service.UserService;
+import pl.jawa.psinder.webclient.MailSender;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,9 +20,11 @@ import java.util.Optional;
 public class UserController {
 
     private final UserService userService;
+    private final MailSender emailService;
 
-    public UserController(UserService userService) {
+    public UserController(UserService userService, MailSender emailService) {
         this.userService = userService;
+        this.emailService = emailService;
     }
 
     //get all users from repository
@@ -97,6 +101,28 @@ public class UserController {
         userService.deleteUser(id);
         return ResponseEntity.ok("User with id " + id + " is removed.");
     }
+    //get data to verify and sent verification mail
+    @PostMapping("/{id}/verification")
+    public ResponseEntity<String>  sendToVerify (@RequestBody VerificationDto verificationDto, @PathVariable long id) {
+        User user = userService.getUserById(id).orElseThrow(() -> new ResourceAccessException("User not found on :: "+ id));
 
+        emailService.sendVerificationMessage(
+                user.getUsername(),
+                user.getFirstName(),
+                user.getLastName(),
+                verificationDto.getRegon(),
+                verificationDto.getAddress(), id
+        );
+
+        return ResponseEntity.ok("The application has been sent for verification");
+    }
+    //accept verification
+    @PostMapping("/{id}/verified")
+    public ResponseEntity<String> validateVerify (@PathVariable long id) {
+        User user = userService.getUserById(id).orElseThrow(() -> new ResourceAccessException("User not found on :: "+ id));
+        user.setVerified(true);
+        final User updatedUser = userService.updateUser(user);
+        return ResponseEntity.ok(user.getUsername() + " user has been verified");
+    }
 
 }

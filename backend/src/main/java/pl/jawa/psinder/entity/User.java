@@ -9,8 +9,6 @@ import javax.persistence.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
 public class User {
 
     @Id
@@ -33,5 +31,6 @@ public class User {
     @Column(name = "email")
     private String email;
 
-
+    @Column(name = "verified")
+    private boolean verified;
 }
