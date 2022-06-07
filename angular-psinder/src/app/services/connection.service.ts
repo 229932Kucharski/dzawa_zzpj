@@ -22,8 +22,16 @@ export class ConnectionService {
     
   }
 
-  getConnectionsForOwner(userId: string): Observable<Connection[]> {
-    return this.httpClient.get<Connection[]>(`${this.connUrl}?ownerid=${userId}`);
+  acceptConnection(connId: string) {
+    return this.httpClient.put(`${this.connUrl}/status-update?connectionid=${connId}&status=accepted`, null);
+  }
+
+  getConnectionsForOwner(userId: string, keyword: string): Observable<Connection[]> {
+    if (keyword == "") {
+      return this.httpClient.get<Connection[]>(`${this.connUrl}?ownerid=${userId}`);
+    } else {
+      return this.httpClient.get<Connection[]>(`${this.connUrl}?ownerid=${userId}&keyword=${keyword}`);
+    }
   }
 
   getConnectionById(connId: string): Observable<Connection> {

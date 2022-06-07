@@ -1,0 +1,181 @@
+<div class="content">
+  <div class=".section-content section-content-p30">
+    <h4 class="connections-title">Twoje połączenia</h4>
+    <div class="input-group mb-3 mt-3">
+      <button
+        class="btn btn-outline-primary"
+        type="button"
+        (click)="doSearch(searchInput.value)"
+      >
+        Szukaj
+      </button>
+      <div class="w-50">
+        <input
+          #searchInput
+          type="text"
+          class="form-control w-50"
+          placeholder="Wyszukaj połączenie"
+          (keyup.enter)="doSearch(searchInput.value)"
+        />
+      </div>
+    </div>
+    <hr />
+    <div *ngIf="connections.length == 0">
+      <div class="row w-50 mx-auto">
+        <div class="col">
+          <img src="assets/img/no_dogs.svg" class="img-fluid" />
+        </div>
+      </div>
+      <div class="row w-75 mx-auto mt-3">
+        <div class="col text-center">
+          <h1 class="display-6">Nie masz żadnych połączeń</h1>
+        </div>
+      </div>
+    </div>
+    <div class="row justify-content-md-center">
+      <div *ngFor="let con of connections" class="col-md-4">
+        <a
+          routerLink="/connection-owner/{{ con.id }}"
+          class="connection-link"
+          *ngIf="con.status != 'canceled'"
+        >
+          <div class="card connection-card shadow" style="max-width: 440px">
+            <div class="row g-0">
+              <div class="col-md-6">
+                <img
+                  src="assets/img/default_avatar.png"
+                  class="img-fluid rounded-start"
+                  alt="..."
+                />
+              </div>
+              <div class="col-md-6">
+                <div class="card-body">
+                  <h5 class="card-title">{{ con.walker.username }}</h5>
+                  <p class="card-text">
+                    <small class="text-muted">Imię:</small>
+                    {{ con.walker.firstName }}
+                  </p>
+                  <p class="card-text">
+                    <small class="text-muted">Nazwisko:</small>
+                    {{ con.walker.lastName }}
+                  </p>
+                  <p class="card-text">
+                    <small class="text-muted">Połączenie z :</small>
+                    {{ con.pet.name }}
+                  </p>
+                  <button
+                    type="button"
+                    class="btn btn-outline-success btn-sm mb-5 me-1"
+                    data-bs-toggle="modal"
+                    data-bs-target="#addModal"
+                    (click)="buttonEvent(con)"
+                    *ngIf="con.status == 'waiting'"
+                  >
+                    Dodaj
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-outline-danger btn-sm mb-5"
+                    data-bs-toggle="modal"
+                    data-bs-target="#exampleModal"
+                    (click)="buttonEvent(con)"
+                  >
+                    Usuń
+                  </button>
+                  <p class="card-text staus-info">
+                    <small class="state-waiting" *ngIf="con.status == 'waiting'"
+                      >Status: oczekujący</small
+                    >
+                    <small
+                      class="state-accepted"
+                      *ngIf="con.status == 'accepted'"
+                      >Status: zaakceptowane</small
+                    >
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">
+          Czy na pewno chcesz usunąć to połączenie?
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Anuluj
+        </button>
+        <button
+          type="button"
+          class="btn btn-danger"
+          data-bs-dismiss="modal"
+          (click)="removeConnection()"
+        >
+          Usuń
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="addModal"
+  tabindex="-1"
+  aria-labelledby="addModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">
+          Czy na pewno chcesz zaakceptować to połączenie?
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        Po zaakceptowaniu, zyskacie dostęp do bezpośredniego czatu.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Anuluj
+        </button>
+        <button
+          type="button"
+          class="btn btn-success"
+          data-bs-dismiss="modal"
+          (click)="acceptConnection()"
+        >
+          Dodaj
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -71,6 +71,7 @@ public class ConnectionController {
         }
     }
 
+    @CrossOrigin
     @PutMapping(path = "status-update",
             produces = MediaType.APPLICATION_JSON_VALUE, params = {"connectionid", "status"})
     public ResponseEntity<String> statusChange(@RequestParam("connectionid") long id, @RequestParam("status") String status) {
