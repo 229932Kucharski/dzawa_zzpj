@@ -4,14 +4,12 @@ import lombok.Data;
 
 @Data
 public class UserDto {
+    private long id;
     private String username;
     private String firstName;
     private String lastName;
     private String email;
-
     private boolean verified;
-
-    private long id;
 
     public UserDto(long id, String username, String firstName, String lastName, String email) {
         this.id = id;

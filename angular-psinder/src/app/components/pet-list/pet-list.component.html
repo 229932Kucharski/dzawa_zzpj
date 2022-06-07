@@ -15,8 +15,9 @@
     <div class="col mb-3 mt-3">
       <a (click)="remove()">
         <div class="mx-auto navigation-cross-button text-center">
-          <i class="fa-solid fa-circle-arrow-left fa-7x"></i>
+          <i class="fa-solid fa-times fa-7x"></i>
         </div>
+        <div class="text-center">Odrzuć</div>
       </a>
     </div>
     <div class="col">
@@ -47,9 +48,21 @@
     <div class="col mt-3 mb-3">
       <a (click)="add()">
         <div class="navigation-tick-button align-middle text-center" if="tick">
-          <i class="fa-solid fa-circle-arrow-right fa-7x"></i>
+          <i class="fa-solid fa-plus fa-7x"></i>
         </div>
+        <div class="text-center">Dodaj</div>
       </a>
+      <div class="mt-5">
+        <a (click)="skip()">
+          <div
+            class="navigation-skip-button align-middle text-center"
+            if="tick"
+          >
+            <i class="fa-solid fa-circle-arrow-right fa-3x"></i>
+          </div>
+          <div class="text-center">Pomiń</div>
+        </a>
+      </div>
     </div>
   </div>
   <div class="row align-items-center container-fluid mt-5 pb-5">
@@ -72,33 +85,36 @@
         <div class="col-sm-5">
           <div class="form-check">
             <input
-              name="smallSize"
+              class="form-check-input"
               [(ngModel)]="smallSize"
-              class="form-check-input"
               type="checkbox"
-              checked
+              name="smallSize"
             />
-            <label class="form-check-label"> Mały </label>
+            <label class="form-check-label" for="flexRadioDefault1">
+              Mały
+            </label>
           </div>
           <div class="form-check">
             <input
-              name="mediumSize"
+              class="form-check-input"
               [(ngModel)]="mediumSize"
-              class="form-check-input"
               type="checkbox"
-              checked
+              name="mediumSize"
             />
-            <label class="form-check-label"> Średni </label>
+            <label class="form-check-label" for="flexRadioDefault2">
+              Średni
+            </label>
           </div>
           <div class="form-check">
             <input
-              name="largeSize"
-              [(ngModel)]="largeSize"
               class="form-check-input"
+              [(ngModel)]="largeSize"
               type="checkbox"
-              checked
+              name="largeSize"
             />
-            <label class="form-check-label"> Duży </label>
+            <label class="form-check-label" for="flexRadioDefault2">
+              Duży
+            </label>
           </div>
         </div>
       </div>

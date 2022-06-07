@@ -13,9 +13,8 @@ public class AddressDistanceClient {
     private static final String API_KEY = "PiyGfpjsJ9Y8hubYJeQAwmKHAAqJ5iW8";
 
     /**
-     *
-     * @param from is an address in format "street, city"
-     * @param to is an address in format "street, city"
+     * @param from is an address in format "city, street"
+     * @param to is an address in format "city, street"
      * @return distance between given addresses in km as Double, if address is incorrect, returns -1.0
      */
     public Double getDistance(String from, String to) throws JsonProcessingException {

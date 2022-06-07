@@ -101,6 +101,16 @@ a.logo:hover {
   align-items: center;
 }
 
+.content-connection {
+  display: flex;
+  margin: 32px auto 16px;
+  padding: 0 16px;
+  max-width: 1700px;
+  height:85vh;
+  flex-direction: column;
+  align-items: center;
+}
+
 .link-color, 
 .link-color:hover {
   color: #ff9100;
@@ -163,6 +173,10 @@ a.logo:hover {
   color: #8ee6a6;
 }
 
+.navigation-skip-button {
+  color: #ffe877;
+}
+
 .dog-img{
   width: 300px !important;
 }
@@ -176,6 +190,72 @@ a.logo:hover {
   border: none !important;
 }
 
+/* ========================= */
+/*        CONN LIST          */ 
+/* ========================= */
+
+.connection-link {
+  text-decoration: none;
+  color: black;
+}
+
+.connection-link:hover {
+  color: black;
+}
+
+.connection-link:hover .connection-card{
+  color: black;
+  border: 1px solid #ff9100;
+}
+
+.connections-title {
+  width: 90vw;
+  text-align: center;
+}
+
+.section-content {
+  position: relative;
+  margin: 0 auto;
+  z-index: 1;
+}
+
+.section-content-p30 {
+  padding: 0 30px;
+}
+
+.connection-name {
+  text-decoration: none;
+}
+
+.connection-card {
+  margin: 50px 20px;
+  border: 1px solid rgba(0, 0, 0, 0.125)
+}
+
+.card-description {
+  padding: 15px 35px;
+}
+
+.connection-delete {
+  color: rgb(255, 140, 140);
+}
+
+.state-waiting {
+  color: #ff9100 !important;
+}
+
+.state-canceled {
+  color: #ff7171 !important;
+}
+
+.state-accepted {
+  color: #1fb40b !important;
+}
+
+.staus-info {
+  position: absolute;
+  bottom: 15px;
+}
 
 /* ========================= */
 /*        ADDITIONAL         */ 
@@ -206,7 +286,12 @@ input[type="range"]:focus {
   outline: 0 none;
 }
 
-input[type="checkbox"]:checked {
+input[type="radio"]:checked {
+  background-color: #ff9100;
+  border: none
+}
+
+input[type="radio"]:checked {
   background-color: #ff9100;
   border: none
 }

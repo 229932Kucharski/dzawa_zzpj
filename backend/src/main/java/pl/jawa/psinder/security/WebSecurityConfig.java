@@ -47,7 +47,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                     .authorizeRequests()
-                    .antMatchers("/authenticate", "/register", "/").permitAll()
+                    .antMatchers("/authenticate", "/register", "/validate",  "/").permitAll()
                     .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 //                Comment below line to open endpoints
 //                    .anyRequest().authenticated()
@@ -57,7 +57,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                     .sessionManagement()
                     .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-
+        http.cors().disable();
         // Add a filter to validate the tokens with every request
         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
     }

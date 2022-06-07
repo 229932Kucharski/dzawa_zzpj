@@ -1,6 +1,5 @@
 package pl.jawa.psinder.controller;
 
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -9,7 +8,6 @@ import pl.jawa.psinder.entity.Connection;
 import pl.jawa.psinder.enums.Status;
 import pl.jawa.psinder.repository.ConnectionRepository;
 
-import java.rmi.ServerException;
 import java.util.List;
 import java.util.Optional;
 
@@ -88,11 +86,11 @@ public class ConnectionController {
         }
     }
 
+    @CrossOrigin
     @DeleteMapping(path = "delete", params = "id")
     public ResponseEntity<String> deleteById(@RequestParam("id") long id) {
         try {
             connectionRepository.deleteById(id);
-
             return new ResponseEntity<>("Connection deleted", HttpStatus.OK);
         } catch (Exception ex) {
             System.out.print(ex.getMessage());

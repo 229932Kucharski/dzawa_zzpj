@@ -1,5 +1,7 @@
 package pl.jawa.psinder.controller;
 
+import io.jsonwebtoken.Jwts;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -11,8 +13,10 @@ import pl.jawa.psinder.dto.UserDto;
 import pl.jawa.psinder.entity.User;
 import pl.jawa.psinder.model.JwtRequest;
 import pl.jawa.psinder.model.JwtResponse;
+import pl.jawa.psinder.model.JwtTokenValidationRequest;
 import pl.jawa.psinder.security.JwtTokenUtil;
 import pl.jawa.psinder.service.JwtUserDetailsService;
+import pl.jawa.psinder.service.UserService;
 
 import java.util.Objects;
 
@@ -20,19 +24,24 @@ import java.util.Objects;
 @CrossOrigin
 public class JwtAuthenticationController {
 
+    @Value("${jwt.secret}")
+    private String secret;
+
     private final AuthenticationManager authenticationManager;
     private final JwtTokenUtil jwtTokenUtil;
     private final JwtUserDetailsService userDetailsService;
+    private final UserService userService;
 
     public JwtAuthenticationController(AuthenticationManager authenticationManager,
-                                       JwtTokenUtil jwtTokenUtil,
-                                       JwtUserDetailsService  userDetailsService) {
+                                       JwtTokenUtil jwtTokenUtil, JwtUserDetailsService userDetailsService,
+                                       UserService userService) {
         this.authenticationManager = authenticationManager;
         this.jwtTokenUtil = jwtTokenUtil;
         this.userDetailsService = userDetailsService;
+        this.userService = userService;
     }
 
-    @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
+    @PostMapping(value = "/authenticate")
     public ResponseEntity<?> generateAuthenticationToken(@RequestBody JwtRequest authenticationRequest)
             throws Exception {
 
@@ -40,7 +49,8 @@ public class JwtAuthenticationController {
         final UserDetails userDetails = userDetailsService
                 .loadUserByUsername(authenticationRequest.getUsername());
         final String token = jwtTokenUtil.generateToken(userDetails);
-        return ResponseEntity.ok(new JwtResponse(token));
+        long id = userService.getUserByUsername(authenticationRequest.getUsername()).get().getId();
+        return ResponseEntity.ok(new JwtResponse(token, authenticationRequest.getUsername(), id));
     }
 
     @PostMapping("/register")
@@ -52,6 +62,18 @@ public class JwtAuthenticationController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
         return ResponseEntity.ok(createdUser);
+    }
+
+    @PostMapping("/validate")
+    public boolean validateToken(@RequestBody JwtTokenValidationRequest validationRequest) {
+        String tokenWithoutBearer = validationRequest.getToken().substring(7);
+        try {
+            final UserDetails userDetails = userDetailsService
+                    .loadUserByUsername(validationRequest.getUsername());
+            return jwtTokenUtil.validateToken(tokenWithoutBearer, userDetails);
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     private void authenticate(String username, String password) throws Exception {
