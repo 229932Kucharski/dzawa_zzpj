@@ -1,6 +1,10 @@
 package pl.jawa.psinder.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -10,6 +14,8 @@ import javax.persistence.*;
 @Entity
 @Table(name = "chat")
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Chat {
 
     @Id
@@ -20,6 +26,7 @@ public class Chat {
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "connection_id")
+    @JsonIgnore
     @ToString.Exclude
     private Connection connection;
 
