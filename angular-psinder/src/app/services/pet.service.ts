@@ -10,6 +10,7 @@ import { UserData } from '../common/userData';
 })
 export class PetService {
   private petsUrl = environment.baseUrl + '/pets';
+  private usersUrl = environment.baseUrl + '/users';
 
   constructor(private httpClient: HttpClient) { }
 
@@ -23,6 +24,14 @@ export class PetService {
 
   savePet(pet: Pet):Observable<Pet> {
     return this.httpClient.post<Pet>(this.petsUrl, pet);
+  }
+
+  deletePet(petId: string) {
+    return this.httpClient.delete(`${this.petsUrl}/${petId}`)
+  }
+
+  getPetsForUser(userId: string) {
+    return this.httpClient.get<Pet[]>(`${this.usersUrl}/${userId}/pets`);
   }
 
   getPetsFiltered(race: string, sizes: string[], city: string, street: string, distance: number): Observable<Pet[]> {

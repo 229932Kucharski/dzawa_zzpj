@@ -54,6 +54,7 @@ public class PetController {
     }
 
     //delete pet with given id
+    @CrossOrigin
     @DeleteMapping("/pets/{id}")
     public void deletePet(@PathVariable long id) {
         petService.deletePet(id);
