@@ -1,5 +1,6 @@
 package pl.jawa.psinder.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
+import pl.jawa.psinder.dto.RatingDto;
 import pl.jawa.psinder.entity.Rating;
 import pl.jawa.psinder.entity.User;
 import pl.jawa.psinder.service.RatingService;
@@ -31,6 +33,8 @@ public class RatingControllerTests {
     private RatingService ratingService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private ObjectMapper objectMapper;
 
     private static User user1, user2;
     private static Rating rate;
@@ -113,11 +117,10 @@ public class RatingControllerTests {
     @Test
     public void operationsRatingTest() throws Exception {
         create();
-        int lastSize = ratingService.getAllRates().size();
         Rating tmpRate = new Rating(0, "test", user2, user1);
 
         ratingService.addRate(tmpRate);
-        lastSize = ratingService.getAllRates().size();
+        int lastSize = ratingService.getAllRates().size();
         mockMvc.perform(
                         delete("/rating/delete" + tmpRate.getId())
                                 .contentType(MediaType.APPLICATION_JSON)
@@ -127,9 +130,64 @@ public class RatingControllerTests {
         clean();
     }
 
+    @Test
+    public void createRatingTest() throws Exception {
+
+        create();
+
+        RatingDto rating = new RatingDto(2, "Ladne", user1.getId(), user2.getId());
+        int amount = ratingService.getAllRates().size();
+        mockMvc.perform(
+                        post("/rating/add")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(objectMapper.writeValueAsString(rating))
+                )
+                .andExpect(status().isOk()
+                );
+        assertEquals(ratingService.getAllRates().size(), amount + 1);
+        assertEquals(ratingService.getAllRates().get(ratingService.getAllRates().size() - 1).getComment(), rating.getComment());
+        assertEquals(ratingService.getAllRates().get(ratingService.getAllRates().size() - 1).getFromUser(), user1);
+        assertEquals(ratingService.getAllRates().get(ratingService.getAllRates().size() - 1).getToUser(), user2);
+
+        ratingService.deleteRate(ratingService.getAllRates().get(ratingService.getAllRates().size() - 1).getId());
+        clean();
+    }
+
+    @Test
+    public void updateRatingTest() throws Exception {
+
+        create();
+
+        Rating tmpRate = new Rating(0, "test", user2, user1);
+        ratingService.addRate(tmpRate);
+
+        System.out.println(tmpRate.getId());
+        System.out.println(ratingService.getRateById(tmpRate.getId()));
+
+        RatingDto rating = new RatingDto(
+                2,
+                tmpRate.getComment(),
+                tmpRate.getFromUser().getId(),
+                tmpRate.getToUser().getId()
+        );
+        mockMvc.perform(
+                        post("/rating/update" + tmpRate.getId())
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(objectMapper.writeValueAsString(rating))
+                )
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk()
+                );
+        assertEquals(ratingService.getRateById(tmpRate.getId()).getRate(), rating.getRating());
+        assertNotEquals(ratingService.getRateById(tmpRate.getId()).getRate(), tmpRate.getRate());
+
+        ratingService.deleteRate(tmpRate.getId());
+        clean();
+    }
+
     private void create() {
-        user1 = new User("G", "W", "Un", "$2a$10$Fn5ReBxSA7m5lsZEIQ/JyOmIKQYIm5iVUx3ZMYIspzOWSI88h7Noy","abc@gmail.com");
-        user2 = new User("P", "O", "Kn", "$2a$10$Fn5ReBxSA7m5lsZEIQ/JyOmIKQYIm5iVUx3ZMYIspzOWSI88h7Noy","def@gmail.com");
+        user1 = new User("G", "W", "Un", "$2a$10$Fn5ReBxSA7m5lsZEIQ/JyOmIKQYIm5iVUx3ZMYIspzOWSI88h7Noy", "abc@gmail.com");
+        user2 = new User("P", "O", "Kn", "$2a$10$Fn5ReBxSA7m5lsZEIQ/JyOmIKQYIm5iVUx3ZMYIspzOWSI88h7Noy", "def@gmail.com");
         userService.addUser(user1);
         userService.addUser(user2);
         rate = new Rating(5, "test", user1, user2);
