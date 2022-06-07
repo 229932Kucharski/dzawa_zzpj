@@ -1,7 +1,6 @@
 package pl.jawa.psinder.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 import pl.jawa.psinder.dto.PetDto;
 import pl.jawa.psinder.dto.UserDto;
@@ -33,17 +32,10 @@ public class PetController {
 
     //create pet
     @PostMapping("/pets")
-    public Pet createPet(@RequestBody PetDto petDto) {
-        return petService.addPet(new Pet(
-                null,
-                petService.getOwner(1), //needs to change
-                petDto.getName(),
-                petDto.getRace(),
-                petDto.getSize(),
-                petDto.getDescription(),
-                null, //needs to change
-                petService.getPet(1).get().getAddress() //needs to change
-        ));
+    public Pet createPet(@RequestBody Pet pet) {
+        PetAddress address = pet.getAddress();
+        address.setPet(pet);
+        return petService.addPet(pet);
     }
 
     //update pet

@@ -287,3 +287,8 @@ input[type="radio"]:checked {
   border: none
 }
 
+input[type="radio"]:checked {
+  background-color: #ff9100;
+  border: none
+}
+

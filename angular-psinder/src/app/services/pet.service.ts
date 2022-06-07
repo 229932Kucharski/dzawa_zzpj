@@ -21,6 +21,10 @@ export class PetService {
     return this.httpClient.get<UserData>(`${this.petsUrl}/${petId}/owner`);
   }
 
+  savePet(pet: Pet):Observable<Pet> {
+    return this.httpClient.post<Pet>(this.petsUrl, pet);
+  }
+
   getPetsFiltered(race: string, sizes: string[], city: string, street: string, distance: number): Observable<Pet[]> {
     let filtredPetsUrl = this.petsUrl + "/filtered?";
     if (race != "") {

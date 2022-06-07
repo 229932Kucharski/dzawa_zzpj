@@ -18,8 +18,10 @@ import { ConnectionChooseComponent } from './components/connection-choose/connec
 import { ConnectionListWalkerComponent } from './components/connection-list-walker/connection-list-walker.component';
 import { WelcomePageComponent } from './components/welcome-page/welcome-page.component';
 import { ConnectionWalkerComponent } from './components/connection-walker/connection-walker.component';
+import { PetAddComponent } from './components/pet-add/pet-add.component';
 
 const routes: Routes = [
+  {path: 'add', component: PetAddComponent, canActivate:[AuthGuardService]},
   {path: 'home', component: WelcomePageComponent},
   {path: 'connections-walker/search/:keyword', component: ConnectionListWalkerComponent, canActivate:[AuthGuardService]},
   {path: 'connections-walker', component: ConnectionListWalkerComponent, canActivate:[AuthGuardService]},
@@ -45,7 +47,8 @@ const routes: Routes = [
     ConnectionChooseComponent,
     ConnectionListWalkerComponent,
     WelcomePageComponent,
-    ConnectionWalkerComponent
+    ConnectionWalkerComponent,
+    PetAddComponent
   ],
   imports: [
     RouterModule.forRoot(routes),
