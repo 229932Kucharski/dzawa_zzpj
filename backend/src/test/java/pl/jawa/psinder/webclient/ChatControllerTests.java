@@ -39,9 +39,29 @@ public class ChatControllerTests {
     private ChatService chatService;
 
     @Test
-    public void getAllChatsControllerTest() throws Exception {
+    public void getChatsControllerTest() throws Exception {
         mockMvc.perform(
                     get("/chat/all")
+                    .contentType(MediaType.APPLICATION_JSON)
+                )
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk()
+        );
+
+        mockMvc.perform(
+                    get("/chat")
+                    .contentType(MediaType.APPLICATION_JSON)
+                )
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk()
+        );
+    }
+
+    @Test
+    public void getChatsByConnectionIdControllerTest() throws Exception {
+        mockMvc.perform(
+                    get("/chat")
+                    .param("id", "2")
                     .contentType(MediaType.APPLICATION_JSON)
                 )
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
