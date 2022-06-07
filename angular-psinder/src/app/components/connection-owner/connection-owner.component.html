@@ -89,29 +89,31 @@
                         src="assets/img/default_avatar.png"
                         class="img-responsive img-thumbnail img-chat"
                         alt=""
-                        *ngIf="mess.user_Id != connection.walker.id"
+                        *ngIf="mess.username != connection.walker.username"
                       />
                       <img
                         src="assets/img/default_avatar.png"
                         class="img-responsive img-thumbnail img-chat"
                         alt=""
-                        *ngIf="mess.user_Id == connection.walker.id"
+                        *ngIf="mess.username == connection.walker.username"
                       />
                     </div>
                     <div class="conversation-body">
                       <div
                         class="name"
-                        *ngIf="mess.user_Id == connection.walker.id"
+                        *ngIf="mess.username == connection.walker.username"
                       >
                         {{ connection.walker.username }}
                       </div>
                       <div
                         class="name"
-                        *ngIf="mess.user_Id != connection.walker.id"
+                        *ngIf="mess.username != connection.walker.username"
                       >
                         {{ connection.owner.username }}
                       </div>
-                      <div class="time hidden-xs">TIME</div>
+                      <div class="time hidden-xs">
+                        {{ mess.date | date: "medium" }}
+                      </div>
                       <div class="text">
                         {{ mess.text }}
                       </div>

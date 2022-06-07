@@ -20,15 +20,14 @@ public class ChatMapper {
 
     public MessageChatDto fromDomainModel(Chat source, String username) {
         return new MessageChatDto(
-                source.getUser().getId(),
                 username,
-                source.getText()
+                source.getText(),
+                source.getDateCreated()
         );
     }
 
     public Chat toDomailModel(ChatDto source) {
         return new Chat(
-                source.getId(),
                 connectionRepository.findById(source.getConn_Id()).get(),
                 userService.getUserById(source.getUser_Id()).get(),
                 source.getText()

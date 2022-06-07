@@ -9,11 +9,7 @@ import lombok.Data;
 @AllArgsConstructor
 public class ChatDto {
 
-    private long id;
-
     private long conn_Id;
-
     private long user_Id;
-
     private String text;
 }
