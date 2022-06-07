@@ -36,6 +36,6 @@ INSERT INTO connection VALUES (1, 1, 1, 3, 'waiting');
 INSERT INTO connection VALUES (2, 2, 1, 3, 'accepted');
 INSERT INTO connection VALUES (3, 3, 2, 4, 'canceled');
 
-INSERT INTO chat VALUES (1, 2, 1, "Czy ten pies gryzie?");
-INSERT INTO chat VALUES (2, 2, 3, "Tak, gryzie");
-INSERT INTO chat VALUES (3, 2, 1, "A to nie chce go.");
+INSERT INTO chat VALUES (1, 2, 1, "Czy ten pies gryzie?", "2022-04-19 20:20:00");
+INSERT INTO chat VALUES (2, 2, 3, "Tak, gryzie", "2022-04-20 00:15:00");
+INSERT INTO chat VALUES (3, 2, 1, "A to nie chce go.", "2022-05-23 22:33:05");

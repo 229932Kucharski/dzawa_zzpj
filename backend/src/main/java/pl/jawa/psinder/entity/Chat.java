@@ -5,10 +5,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "chat")
@@ -36,6 +38,10 @@ public class Chat {
 
     @Column(name = "text")
     private String text;
+
+    @Column(name = "date_created")
+    @CreationTimestamp
+    private Date dateCreated;
 
     public Chat(Connection connection, User user, String text) {
         this.connection = connection;
