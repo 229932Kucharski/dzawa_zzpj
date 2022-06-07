@@ -60,7 +60,7 @@ export class ConnectionListOwnerComponent implements OnInit {
   }
 
   cancelConnection() {
-    this.conService.acceptConnection(this.choosenConnection?.id.toString()!).subscribe({
+    this.conService.cancelConnection(this.choosenConnection?.id.toString()!).subscribe({
       next: response => {
         alert("Połączenie zostało anulowane");
         this.ngOnInit();
