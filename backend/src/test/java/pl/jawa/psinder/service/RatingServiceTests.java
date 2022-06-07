@@ -1,5 +1,4 @@
 package pl.jawa.psinder.service;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,12 +23,6 @@ public class RatingServiceTests {
 
     private static Rating rate1, rate2;
     private static User user1, user2;
-
-    @BeforeAll
-    private static void setup() {
-        user1 = new User("G", "W", "Un", "$2a$10$Fn5ReBxSA7m5lsZEIQ/JyOmIKQYIm5iVUx3ZMYIspzOWSI88h7Noy","abc@gmail.com");
-        user2 = new User("P", "O", "Kn", "$2a$10$Fn5ReBxSA7m5lsZEIQ/JyOmIKQYIm5iVUx3ZMYIspzOWSI88h7Noy","def@gmail.com");
-    }
 
     @Test
     public void getRatingTests() {
@@ -80,6 +73,8 @@ public class RatingServiceTests {
     }
 
     private void create() {
+        user1 = new User("G", "W", "Un", "$2a$10$Fn5ReBxSA7m5lsZEIQ/JyOmIKQYIm5iVUx3ZMYIspzOWSI88h7Noy","abc@gmail.com");
+        user2 = new User("P", "O", "Kn", "$2a$10$Fn5ReBxSA7m5lsZEIQ/JyOmIKQYIm5iVUx3ZMYIspzOWSI88h7Noy","def@gmail.com");
         userService.addUser(user1);
         userService.addUser(user2);
         rate1 = new Rating(3, "tmp", user1, user2);
