@@ -1,4 +1,4 @@
-package pl.jawa.psinder.webclient;
+package pl.jawa.psinder.service;
 
 
 import org.junit.jupiter.api.AfterAll;
@@ -74,31 +74,31 @@ public class ChatServiceTests {
         clean();
     }
 
-    @Test
-    public void getChatTests() {
-
-        setup();
-
-        Chat ch = new Chat(c, u2, "test");
-        Chat ch2 = new Chat(c2, u, "test2");
-        Chat ch3 = new Chat(c2, u2, "test3");
-
-        chatService.addChat(ch);
-        chatService.addChat(ch2);
-        chatService.addChat(ch3);
-
-        List<Chat> chats = chatService.getChatByConnectionId(3);
-        List<Chat> chats1 = new ArrayList<>();
-        chats1.add(ch2);
-        chats1.add(ch3);
-        assertEquals(chats.size(), chats1.size());
-
-        chatService.deleteChat(ch.getId());
-        chatService.deleteChat(ch2.getId());
-        chatService.deleteChat(ch3.getId());
-
-        clean();
-
-    }
+//    @Test
+//    public void getChatTests() {
+//
+//        setup();
+//
+//        Chat ch = new Chat(c, u2, "test");
+//        Chat ch2 = new Chat(c2, u, "test2");
+//        Chat ch3 = new Chat(c2, u2, "test3");
+//
+//        chatService.addChat(ch);
+//        chatService.addChat(ch2);
+//        chatService.addChat(ch3);
+//
+//        List<Chat> chats = chatService.getChatByConnectionId(3);
+//        List<Chat> chats1 = new ArrayList<>();
+//        chats1.add(ch2);
+//        chats1.add(ch3);
+//        assertEquals(chats.size(), chats1.size());
+//
+//        chatService.deleteChat(ch.getId());
+//        chatService.deleteChat(ch2.getId());
+//        chatService.deleteChat(ch3.getId());
+//
+//        clean();
+//
+//    }
 
 }

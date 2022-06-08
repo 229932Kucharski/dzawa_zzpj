@@ -1,4 +1,4 @@
-package pl.jawa.psinder.webclient;
+package pl.jawa.psinder.service;
 
 
 import org.junit.jupiter.api.Test;

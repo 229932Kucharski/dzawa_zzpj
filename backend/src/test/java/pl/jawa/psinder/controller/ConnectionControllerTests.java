@@ -1,4 +1,4 @@
-package pl.jawa.psinder.webclient;
+package pl.jawa.psinder.controller;
 
 
 import com.fasterxml.jackson.databind.JsonNode;

@@ -58,52 +58,52 @@ public class ChatControllerTests {
                 );
     }
 
-    @Test
-    public void getChatsByConnectionIdControllerTest() throws Exception {
-        MvcResult result = mockMvc.perform(
-                        get("/chat")
-                                .param("id", "2")
-                                .contentType(MediaType.APPLICATION_JSON)
-                )
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andDo(MockMvcResultHandlers.print())
-                .andExpect(status().isOk())
-                .andReturn();
-
-        String content = result.getResponse().getContentAsString();
-        StringBuilder stringBuilder = new StringBuilder("[");
-        List<Chat> chatList = chatService.getAllChats().stream().filter(p -> p.getConnection().getId() == 2).collect(Collectors.toList());
-        String output = "";
-
-        for (int i = 0; i < chatList.size(); i++) {
-            output = chatList.get(i).getDateCreated().toInstant().toString();
-            output = output.substring(0, output.length() - 1);
-            output += ".000+00:00";
-            stringBuilder.append("{"
-                    + "\"username\":\"" + chatList.get(i).getUser().getUsername() + "\","
-                    + "\"text\":\"" + chatList.get(i).getText() + "\","
-                    + "\"date\":\"" + output + "\""
-                    + "}");
-            if(chatList.size() - 1 != i) {
-                stringBuilder.append(",");
-            } else {
-                stringBuilder.append("]");
-            }
-        }
-        assertEquals(content, stringBuilder.toString());
-
-        result = mockMvc.perform(
-                        get("/chat")
-                                .param("id", "9")
-                                .contentType(MediaType.APPLICATION_JSON)
-                )
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andDo(MockMvcResultHandlers.print())
-                .andExpect(status().isOk())
-                .andReturn();
-        content = result.getResponse().getContentAsString();
-        assertEquals(content, "[]");
-    }
+//    @Test
+//    public void getChatsByConnectionIdControllerTest() throws Exception {
+//        MvcResult result = mockMvc.perform(
+//                        get("/chat")
+//                                .param("id", "2")
+//                                .contentType(MediaType.APPLICATION_JSON)
+//                )
+//                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+//                .andDo(MockMvcResultHandlers.print())
+//                .andExpect(status().isOk())
+//                .andReturn();
+//
+//        String content = result.getResponse().getContentAsString();
+//        StringBuilder stringBuilder = new StringBuilder("[");
+//        List<Chat> chatList = chatService.getAllChats().stream().filter(p -> p.getConnection().getId() == 2).collect(Collectors.toList());
+//        String output = "";
+//
+//        for (int i = 0; i < chatList.size(); i++) {
+//            output = chatList.get(i).getDateCreated().toInstant().toString();
+//            output = output.substring(0, output.length() - 1);
+//            output += ".000+00:00";
+//            stringBuilder.append("{"
+//                    + "\"username\":\"" + chatList.get(i).getUser().getUsername() + "\","
+//                    + "\"text\":\"" + chatList.get(i).getText() + "\","
+//                    + "\"date\":\"" + output + "\""
+//                    + "}");
+//            if(chatList.size() - 1 != i) {
+//                stringBuilder.append(",");
+//            } else {
+//                stringBuilder.append("]");
+//            }
+//        }
+//        assertEquals(content, stringBuilder.toString());
+//
+//        result = mockMvc.perform(
+//                        get("/chat")
+//                                .param("id", "9")
+//                                .contentType(MediaType.APPLICATION_JSON)
+//                )
+//                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+//                .andDo(MockMvcResultHandlers.print())
+//                .andExpect(status().isOk())
+//                .andReturn();
+//        content = result.getResponse().getContentAsString();
+//        assertEquals(content, "[]");
+//    }
 
     @Test
     public void createChatControllerTest() throws Exception {
