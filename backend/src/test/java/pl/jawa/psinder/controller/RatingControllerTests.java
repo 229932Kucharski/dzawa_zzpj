@@ -161,8 +161,6 @@ public class RatingControllerTests {
         Rating tmpRate = new Rating(0, "test", user2, user1);
         ratingService.addRate(tmpRate);
 
-        System.out.println(tmpRate.getId());
-        System.out.println(ratingService.getRateById(tmpRate.getId()));
 
         RatingDto rating = new RatingDto(
                 2,

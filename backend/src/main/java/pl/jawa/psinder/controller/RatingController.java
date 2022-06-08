@@ -48,7 +48,6 @@ public class RatingController {
     //add rate
     @PostMapping("/add")
     public ResponseEntity<Rating> addRate(@RequestBody RatingDto ratingDto) {
-        System.out.println(ratingDto.getFromUserId());
         Rating rate = ratingService.addRate(new Rating(
                 ratingDto.getRating(),
                 ratingDto.getComment(),
