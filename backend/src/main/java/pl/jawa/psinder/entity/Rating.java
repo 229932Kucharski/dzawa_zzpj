@@ -1,6 +1,8 @@
 package pl.jawa.psinder.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -9,7 +11,15 @@ import javax.persistence.*;
 @Entity
 @Table(name = "rating")
 @Data
+@NoArgsConstructor
 public class Rating {
+
+    public Rating(int rate, String comment, User fromUser, User toUser) {
+        this.rate = rate;
+        this.comment = comment;
+        this.fromUser = fromUser;
+        this.toUser = toUser;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

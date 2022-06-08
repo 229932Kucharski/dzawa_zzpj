@@ -12,4 +12,5 @@ public class ChatDto {
     private long conn_Id;
     private long user_Id;
     private String text;
+
 }

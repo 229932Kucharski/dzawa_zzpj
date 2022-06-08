@@ -1,5 +1,6 @@
 package pl.jawa.psinder.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -26,11 +27,12 @@ public class User {
     private String username;
 
     @Column(name = "password")
+    @JsonIgnore
     private String password;
 
     @Column(name = "email")
     private String email;
-
+  
     @Column(name = "verified")
     private boolean verified;
 
@@ -40,5 +42,7 @@ public class User {
         this.username = username;
         this.password = password;
         this.email = email;
+        this.verified = false;
     }
+
 }
